@@ -105,7 +105,7 @@
 
 
                     <div class="">
-                        <form class="g-5" action="doSignup.php" method="post">
+                        <form class="g-5" action="doSignupcampowner.php" method="post">
 
                             <div class="row mb-1">
 

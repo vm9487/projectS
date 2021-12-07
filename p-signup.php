@@ -133,12 +133,12 @@
                     <h1 class="text-light fw-bold my-2">What would you like to do with us?</h1>
             
                     <div class="d-flex">
-                        <a href="" class="fotochoose d-flex flex-column align-items-center">
+                        <a href="p-signiupmainpageCampowner.php" class="fotochoose d-flex flex-column align-items-center">
                             <img class="img-fluid" src="img/Graph-Magnifier-icon.png" alt="">
                         <span class="remarks displayh ">I'm seeking for business chance.</span>
                         </a>
 
-                        <a href="" class="fotochoose d-flex flex-column align-items-center">
+                        <a href="p-signiupmainpageCustomer.php" class="fotochoose d-flex flex-column align-items-center">
                             <img class="img-fluid" src="img/Flat-Tent.svg" alt="">
                             <span class="remarks displayh ">I'd like to have some fun!</span>
                         </a>

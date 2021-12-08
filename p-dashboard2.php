@@ -1,13 +1,74 @@
 <?php
-require_once("../db-PDOconnect.php");
+require_once("../db-PDOconnect4project.php");
 if ((isset($_SESSION["user"])) OR (isset($_SESSION["usercamp"])) OR (isset($_SESSION["usersuper"])) )
 {
 //    var_dump($_SESSION["user"]);
+//    var_dump($_SESSION["user"]["customerID"]);
 //    var_dump($_SESSION["usercamp"]);
 //    var_dump($_SESSION["usersuper"]);
 }else{
     header("location: p-login.php");
 }
+
+///////////////////////////////////////////////////////////////////////
+if (isset($_SESSION["user"])){
+$id=$_SESSION["user"]["customerID"];
+$sqlIncomingorder = "SELECT * FROM order_detail WHERE customerID=? AND orderStatusID=1";
+$stmtIncomingorder = $db_host->prepare($sqlIncomingorder);
+try {
+    $stmtIncomingorder->execute([$id]);
+    $rowIncomingorder = $stmtIncomingorder->rowCount();
+//    var_dump($rowIncomingorder);
+} catch (PDOException $e) {echo $e->getMessage();};
+////////////
+
+    $sqlheadpic = "SELECT upload_headpic.*, customer_list.customerID  
+FROM customer_list JOIN upload_headpic 
+    ON customer_list.customerID=upload_headpic.customerID
+WHERE customer_list.customerID=? ORDER BY headpicID DESC";
+    $stmtheadpic = $db_host->prepare($sqlheadpic);
+    try {
+        $stmtheadpic->execute([$id]);
+        $rowheadpic = $stmtheadpic->fetch();
+//    var_dump($rowheadpic["customerPic"]);
+    } catch (PDOException $e) {echo $e->getMessage();};
+
+}elseif(isset($_SESSION["usercamp"])){
+//    echo"usercamp";
+
+    $id=$_SESSION["usercamp"]["campOwnerID"];
+    $sqlIncomingorderc = "SELECT order_detail.*, camp_list.* 
+FROM order_detail JOIN camp_list ON order_detail.campID=camp_list.campID
+WHERE camp_list.campOwnerID=?";
+    $stmtIncomingorderc = $db_host->prepare($sqlIncomingorderc);
+    try {
+        $stmtIncomingorderc->execute([$id]);
+        $rowIncomingorderc = $stmtIncomingorderc->rowCount();
+
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }
+////////////////////////////////////////////////////////////////////
+    $sqlheadpicb = "SELECT upload_headpic.*, camp_owner_list.campOwnerID  
+FROM camp_owner_list JOIN upload_headpic 
+    ON camp_owner_list.campOwnerID=upload_headpic.campOwnerID
+WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
+    $stmtheadpicb = $db_host->prepare($sqlheadpicb);
+    try {
+        $stmtheadpicb->execute([$id]);
+        $rowheadpicb = $stmtheadpicb->fetch();
+//    var_dump($rowheadpicb["headpicFilename"]);
+    } catch (PDOException $e) {echo $e->getMessage();};
+
+}elseif(isset($_SESSION["usersuper"])){
+//    echo"super";
+
+}else{
+    echo"nothing";
+
+};
+////////////////////////////////////////////////////////////////////////
+
 ?>
 
 
@@ -26,6 +87,8 @@ if ((isset($_SESSION["user"])) OR (isset($_SESSION["usercamp"])) OR (isset($_SES
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 </head>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 <style>
     .coverfit {
         width: 100%;
@@ -67,26 +130,57 @@ if ((isset($_SESSION["user"])) OR (isset($_SESSION["usercamp"])) OR (isset($_SES
         border-radius: 50%;
         padding:2px;
         border: 8px solid var(--bgcolor);
+    <?php if (isset($_SESSION["user"])): ?>
+        background: url("upload/<?=$rowheadpic["headpicFilename"]?>");
+    <?php elseif (isset($_SESSION["usercamp"])): ?>
+        background: url("upload/<?=$rowheadpicb["headpicFilename"]?>");
+    <?php elseif (isset($_SESSION["usersuper"])):  ?>
         background: url("img/pepe.png");
+    <?php else: ?>
+    <?php endif; ?>
+
+
         background-repeat: no-repeat;
         background-position:center;
-
         background-size: contain;
         transition:0.5s;
 
     }
     .headbox:hover{
+    <?php if (isset($_SESSION["user"])): ?>
+        background:
+                linear-gradient(180deg, rgba(0, 0, 0, 0) 10%,
+                var(--asidecolor)), url("upload/<?=$rowheadpic["headpicFilename"]?>");
+    <?php elseif (isset($_SESSION["usercamp"])): ?>
+        background:
+                linear-gradient(180deg, rgba(0, 0, 0, 0) 10%,
+                var(--asidecolor)), url("upload/<?=$rowheadpicb["headpicFilename"]?>");
+    <?php elseif (isset($_SESSION["usersuper"])):  ?>
         background:
                 linear-gradient(180deg, rgba(0, 0, 0, 0) 10%,
                 var(--asidecolor)), url("img/pepe.png");
+    <?php else: ?>
+    <?php endif; ?>
+
         background-repeat: no-repeat;
         background-position:center;
         background-size: contain;
         cursor: pointer;
     }
     .changepic{
-        position: relative;
-        margin:130px 10px 0px 10px;
+        margin:120px 0px 0px 0px;
+        text-decoration: none;
+        display: flex;
+        width: 180px;
+        /*height: 200px;*/
+        padding:0px;
+        color:whitesmoke;
+        justify-content: center;
+        align-items: end;
+    }
+    .changepic:hover{
+        text-decoration: none;
+        color:whitesmoke;
     }
 
     aside{
@@ -103,8 +197,27 @@ if ((isset($_SESSION["user"])) OR (isset($_SESSION["usercamp"])) OR (isset($_SES
         font-weight: bold;
         font-size: 30px;
         margin-left:30px;    }
+    .remind{
+        
+        font-weight: bold;
+        font-size: 30px;
+        margin-left:30px;
+        background-color:var(--asidecolor);
+        border-radius:5px;
+        padding:5px; 
+        
+       }
+    .remind a{
+        text-decoration:none;
+        color:whitesmoke;}
     .displayh{
         display:none;
+    }
+    .welcomes{
+        font-weight: bold;
+        font-size: 30px;
+        margin-left:30px;
+        color:var(--asidecolor);
     }
 </style>
 
@@ -138,11 +251,24 @@ if ((isset($_SESSION["user"])) OR (isset($_SESSION["usercamp"])) OR (isset($_SES
             <div class="row">
                 <div class="col-lg-2 p-0">
                     <aside class="px-2 py-2">
-                        <div class="block py-2 my-2">管理首頁</div>
-                        <div class="block py-2 my-2">營地訂單</div>
-                        <div class="block py-2 my-2">業績檢視</div>
-                        <div class="block py-2 my-2">營地管理</div>
-                        <div class="block py-2 my-2">活動列表</div>
+<?php if (isset($_SESSION["user"])): ?>
+<div class="block py-2 my-2">管理首頁</div>
+<div class="block py-2 my-2">你的訂單</div>
+ 
+<?php elseif (isset($_SESSION["usercamp"])): ?>
+<div class="block py-2 my-2">管理首頁</div>
+ <div class="block py-2 my-2">營地訂單</div>
+<div class="block py-2 my-2">業績檢視</div>
+<div class="block py-2 my-2">營地管理</div>
+<div class="block py-2 my-2">活動列表</div>
+
+<?php elseif (isset($_SESSION["usersuper"])):  ?>
+<div class="block py-2 my-2">管理首頁</div>
+<div class="block py-2 my-2">顧客管理</div>
+<div class="block py-2 my-2">營主管理</div>
+<div class="block py-2 my-2">營地分類管理</div>
+ 
+ <?php else: ?> <?php endif; ?>
 
 
                     </aside>
@@ -154,15 +280,38 @@ if ((isset($_SESSION["user"])) OR (isset($_SESSION["usercamp"])) OR (isset($_SES
                     <main class="d-flex justify-content-between m-2 flex-column">
                         <div class="d-flex justify-content-between m-2">
 
-                        <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center ">
                             <div class="headbox">
-<p class="text-light font-weight-bold text-center changepic displayh" id="changepicbox">change pic</p>
+                                <a class=" font-weight-bold changepic displayh " id="changepicbox"  href="#" onclick="window.open(' changepic.php ', 'uploadpic', config='height=400,width=600');" >click to change</a>
                             </div>
+
                         <?php if (isset($_SESSION["user"])): ?>
-                            <div class="hello">Hi, <?=$_SESSION["user"]["customerName"]?></div>
+                            <div>
+                             <div class="hello">Hi, <?=$_SESSION["user"]["customerName"]?></div>
+                                <?php if ($rowIncomingorder>0): ?>
+                             <div class="remind">
+                                 <span class="material-icons text-light fs-4 mx-2">notifications</span>
+                                <a href="">你七天內有<?=$rowIncomingorder;?>筆要成行的計畫! 快到你的訂單去看</a>
+                             </div><!--remind-->
+
+                                <?php else: ?>
+                                <p class="welcomes">Welcome back!</p>
+                                <?php endif; ?>
+                           </div>
 
                         <?php elseif (isset($_SESSION["usercamp"])): ?>
+                        <div>
                             <div class="hello">Hi, <?=$_SESSION["usercamp"]["campOwnerName"]?></div>
+
+                            <?php if ($rowIncomingorderc>0): ?>
+                                <div class="remind">
+                                    <span class="material-icons text-light fs-4 mx-2">notifications</span>
+                                    <a href="">你七天內有<?=$rowIncomingorderc;?>筆要招待的客人! 快到營地訂單去看</a>
+                                </div>
+                            <?php else: ?>
+                                <p class="welcomes">Welcome back!</p>
+                            <?php endif; ?>
+                        </div>
 
                         <?php elseif (isset($_SESSION["usersuper"])):  ?>
                             <div class="hello">Hi, <?=$_SESSION["usersuper"]["superadminAccount"]?></div>
@@ -205,6 +354,7 @@ if ((isset($_SESSION["user"])) OR (isset($_SESSION["usercamp"])) OR (isset($_SES
     headbox.addEventListener("mouseleave", function(){
         changepicbox.classList.add("displayh");
     })
+    // --------------------------
 
 </script>
 

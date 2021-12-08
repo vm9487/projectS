@@ -33,6 +33,7 @@ if ((isset($_SESSION["user"])) OR (isset($_SESSION["usercamp"])) OR (isset($_SES
     <div class="justify-content-end f-flex">
         <?php if (isset($_SESSION["user"])): ?>
         <div>hi, <?=$_SESSION["user"]["customerName"]?></div>
+        
 
         <?php elseif (isset($_SESSION["usercamp"])): ?>
             <div>hi, <?=$_SESSION["usercamp"]["campOwnerName"]?></div>

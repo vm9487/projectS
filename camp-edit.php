@@ -783,9 +783,16 @@ $cate3 = $resultcate3->num_rows;
                                 <div class="mb-3">
                                     <label for="campDist">營地縣市</label>
                                     <select class="form-control" name="campDistID" id="campDistID" required>
-                                        <option value="<?= $row4["campDistID"] ?>"><?= $row4["campDist"] ?></option>
+                                        <!-- <option value="<?= $row4["campDistID"] ?>"><?= $row4["campDist"] ?></option>
+                                        <option value="-------" disabled="disabled">-----------------</option> -->
                                         <?php while ($row = $resultdist->fetch_assoc()): ?>
-                                            <option value="<?= $row["campDistID"] ?>"><?= $row["campDist"] ?></option>
+                                            <option value="<?= $row["campDistID"] ?> " 
+
+                                            <?php if ($row["campDistID"]==$row4["campDistID"])
+                                            {echo "selected";}; ?>
+                                            >
+                                            <?= $row["campDist"] ?>
+                                        </option>
                                         <?php endwhile; ?>
                                     </select>
                                     <div class="invalid-feedback">

@@ -161,10 +161,7 @@ require_once("../db-PDOconnect4project.php");
                                 <!--                            ------------------------------------------->
                             </div>
                             <a class="text-decoration-none  align-self-center fgpwd ">forget password?</a>
-                            <div class="">
-                                <input class="checkbox1" type="checkbox">
-                                <span>Remember me</span>
-                            </div>
+
                             <div class="d-flex pb-2">
                                 <button  class="m-2 signinbttn btn btn-light btn-sm" type="submit">Log in
                                 </button>

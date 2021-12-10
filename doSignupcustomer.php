@@ -10,7 +10,7 @@ $phone=$_POST["Phone"];
 $password=$_POST['password'];
 $repassword=$_POST['repassword'];
 if($password!==$repassword){
-    echo "<script>window.alert('密碼不相同，請重新註冊');location.href='p-signiupmainpageCampowner.php';</script>";
+    echo "<script>window.alert('密碼不相同，請重新註冊');location.href='p-signiupmainpageCustomer.php';</script>";
     exit();
 }
 //$password=md5($password);

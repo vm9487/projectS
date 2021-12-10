@@ -16,6 +16,7 @@ if($password!==$repassword){
 }
 //$password=md5($password);
 
+
 $sqlCheck="SELECT * FROM camp_owner_list WHERE campOwnerAccount= ?";
 $stmtCheck = $db_host->prepare($sqlCheck);
 

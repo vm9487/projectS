@@ -112,9 +112,8 @@ require_once("../db-PDOconnect4project.php");
                     <img class="coverfit" src="./img/logo1.png" alt="logo">
                 </div>
                 <nav class=" ">
-                    <a href="">username</a>
-                    <img class="coverfit headpic mx-2" src="./img/pepe.png" alt="pepethefrog">
-                    <a href="">回網站首頁</a>
+
+                    <a href="product_list.php">回網站首頁</a>
                 </nav>
             </div>
         </div><!-- row -->
@@ -161,10 +160,7 @@ require_once("../db-PDOconnect4project.php");
                                 <!--                            ------------------------------------------->
                             </div>
                             <a class="text-decoration-none  align-self-center fgpwd ">forget password?</a>
-                            <div class="">
-                                <input class="checkbox1" type="checkbox">
-                                <span>Remember me</span>
-                            </div>
+
                             <div class="d-flex pb-2">
                                 <button  class="m-2 signinbttn btn btn-light btn-sm" type="submit">Log in
                                 </button>
@@ -174,7 +170,7 @@ require_once("../db-PDOconnect4project.php");
                         
                         <div class="line"><img class="img-fluid " src="img/mtnline.png" alt=""></div>
 
-                        <a href="p-signup.php" class="my-4 mx-2 signinbttn btn btn-light btn-sm" type="submit">Sign in
+                        <a href="p-signup.php" class="my-4 mx-2 signinbttn btn btn-light btn-sm" type="submit">Sign up
                         </a>
                         <?php endif; ?>
                     </div>

@@ -114,9 +114,7 @@
                     <img class="coverfit" src="./img/logo1.png" alt="logo">
                 </div>
                 <nav class=" ">
-                    <a href="">username</a>
-                    <img class="coverfit headpic mx-2" src="./img/pepe.png" alt="pepethefrog">
-                    <a href="">回網站首頁</a>
+                    <a href="p-login.php">回登入首頁</a>
                 </nav>
             </div>
         </div><!-- row -->

@@ -1,7 +1,7 @@
 <?php
 require_once("../db-PDOconnect4project.php");
 
-//var_dump($_FILES["myFile"]);
+// var_dump($_FILES["myFile"]);
 if ($_FILES["myFile"]["error"] === 0) {
 
     if (move_uploaded_file($_FILES["myFile"]["tmp_name"], "upload/" . $_FILES["myFile"]["name"])) {

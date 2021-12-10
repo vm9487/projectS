@@ -593,7 +593,7 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
                     </div>
 
                 </main>
-            </div><!-- col-8 -->
+            </div><!-- col-10 -->
         </div><!-- row -->
 
     </div><!-- container -->

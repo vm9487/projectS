@@ -440,8 +440,7 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
                                         <ul class="list-group list-group-flush">
                                             <a href="camp-list.php" class="list-group-item list-group-item-action">營地列表</a>
                                             <a href="camp-add.php" class="list-group-item list-group-item-action">營地上架</a>
-                                            <a href="camp-edit.php" class="list-group-item list-group-item-action">營地編輯</a>
-                                            <a href="camp.php" class="list-group-item list-group-item-action">單一訂單細節</a>
+
 
 
                                         </ul>

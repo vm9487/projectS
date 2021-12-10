@@ -100,9 +100,29 @@ if (isset($_GET["id"])) {
 
 }
 require_once("../db-connect.php");
-$sql = "SELECT * FROM camp_list WHERE campID='$id' ";
+$sql = "SELECT * FROM camp_list JOIN campcate1 ON camp_list.campCate1ID=campcate1.campCate1ID WHERE campID='$id' ";
 $result = $conn->query($sql);
 $campExist = $result->num_rows;
+
+$sql1 = "SELECT * FROM camp_list JOIN campcate3 ON camp_list.campCate3ID=campcate3.campCate3ID WHERE campID='$id' ";
+$result1 = $conn->query($sql1);
+$result1Exist = $result1->num_rows;
+
+$sql2 = "SELECT * FROM camp_list JOIN camp_region ON camp_list.campRegionID=camp_region.campRegionID WHERE campID='$id' ";
+$result2 = $conn->query($sql2);
+$result2Exist = $result2->num_rows;
+
+$sql3 = "SELECT * FROM camp_list JOIN camp_county ON camp_list.campCountyID=camp_county.campCountyID WHERE campID='$id' ";
+$result3 = $conn->query($sql3);
+$result3Exist = $result3->num_rows;
+
+$sql4 = "SELECT * FROM camp_list JOIN camp_dist ON camp_list.campDistID=camp_dist.campDistID WHERE campID='$id' ";
+$result4 = $conn->query($sql4);
+$result4Exist = $result4->num_rows;
+
+$sql5 = "SELECT * FROM camp_list WHERE campID='$id' ";
+$result5 = $conn->query($sql5);
+$result5Exist = $result5->num_rows;
 
 $sqlcate1 = "SELECT * FROM campcate1";
 $resultcate1 = $conn->query($sqlcate1);
@@ -644,6 +664,11 @@ $cate3 = $resultcate3->num_rows;
                                 此營地不存在
                             <?php else:
                             $row = $result->fetch_assoc();
+                            $row1 = $result1->fetch_assoc();
+                            $row2 = $result2->fetch_assoc();
+                            $row3 = $result3->fetch_assoc();
+                            $row4 = $result4->fetch_assoc();
+                            $row5 = $result5->fetch_assoc();
                             ?>
                             <form action="doUpdatecamp.php" method="post" class="needs-validation"
                                   enctype="multipart/form-data" novalidate>
@@ -705,7 +730,7 @@ $cate3 = $resultcate3->num_rows;
                                     <label for="campCate1ID">露營類型</label>
                                     <select class="form-control" name="campCate1ID" id="campCate1ID" required>
 
-                                        <option value="">請選擇</option>
+                                        <option value="<?= $row["campCate1ID"] ?>"><?= $row["campCate1item"] ?></option>
                                         <?php while ($row = $resultcate1->fetch_assoc()): ?>
                                             <option value="<?= $row["campCate1ID"] ?>"><?= $row["campCate1item"] ?></option>
                                         <?php endwhile; ?>
@@ -718,7 +743,7 @@ $cate3 = $resultcate3->num_rows;
                                 <div class="mb-3">
                                     <label for="campCate3ID">露營主題</label>
                                     <select class="form-control" name="campCate3ID" id="campCate3ID" required>
-                                        <option value="">請選擇</option>
+                                        <option value="<?= $row1["campCate3ID"] ?>"><?= $row1["campCate3item"] ?></option>
                                         <?php while ($row = $resultcate3->fetch_assoc()): ?>
                                             <option value="<?= $row["campCate3ID"] ?>"><?= $row["campCate3item"] ?></option>
                                         <?php endwhile; ?>
@@ -730,7 +755,7 @@ $cate3 = $resultcate3->num_rows;
                                 <div class="mb-3">
                                     <label for="campRegion">營地區域</label>
                                     <select class="form-control" name="campRegionID" id="campRegionID" required>
-                                        <option value="">請選擇</option>
+                                        <option value="<?= $row2["campRegionID"] ?>"><?= $row2["campRegion"] ?></option>
                                         <?php while ($row = $resultregion->fetch_assoc()): ?>
                                             <option value="<?= $row["campRegionID"] ?>"><?= $row["campRegion"] ?></option>
                                         <?php endwhile; ?>
@@ -744,7 +769,7 @@ $cate3 = $resultcate3->num_rows;
                                     <label for="campCate2ID">營地市區</label>
 
                                     <select class="form-control" name="campCountyID" id="campCountyID" required>
-                                        <option value="">請選擇</option>
+                                        <option value="<?= $row3["campCountyID"] ?>"><?= $row3["campCounty"] ?></option>
                                         <?php while ($row = $resultcounty->fetch_assoc()): ?>
                                             <option value="<?= $row["campCountyID"] ?>"><?= $row["campCounty"] ?></option>
                                         <?php endwhile; ?>
@@ -758,7 +783,7 @@ $cate3 = $resultcate3->num_rows;
                                 <div class="mb-3">
                                     <label for="campDist">營地縣市</label>
                                     <select class="form-control" name="campDistID" id="campDistID" required>
-                                        <option value="">請選擇</option>
+                                        <option value="<?= $row4["campDistID"] ?>"><?= $row4["campDist"] ?></option>
                                         <?php while ($row = $resultdist->fetch_assoc()): ?>
                                             <option value="<?= $row["campDistID"] ?>"><?= $row["campDist"] ?></option>
                                         <?php endwhile; ?>
@@ -771,11 +796,12 @@ $cate3 = $resultcate3->num_rows;
                                 </div>
                                 <div class="mb-3">
                                     <label for="campAdd">營地地址</label>
-                                    <input class="form-control form-control-sm" type="text" name="campAdd" required>
+                                    <input class="form-control form-control-sm" type="text" name="campAdd" value="<?= $row5["campAdd"] ?>" required>
                                     <div class="invalid-feedback">
                                         請輸入地址
                                     </div>
                                 </div>
+
                                 <button class="btn btn-primary" type="submit">修改</button>
                                 <a href="camp-list.php" class="btn btn-primary">返回</a>
 

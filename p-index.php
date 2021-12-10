@@ -543,56 +543,7 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
 
             </div><!-- col-4 -->
             <div class="col-lg-10">
-                <main class="d-flex justify-content-between m-2 flex-column">
-                    <div class="d-flex justify-content-between m-2">
-
-                        <div class="d-flex align-items-center ">
-                            <div class="headbox">
-                                <a class=" font-weight-bold changepic displayh " id="changepicbox" href="#"
-                                   onclick="window.open(' changepic.php ', 'uploadpic', config='height=400,width=600');">click
-                                    to change</a>
-                            </div>
-
-                            <?php if (isset($_SESSION["user"])): ?>
-                                <div>
-                                    <div class="hello">Hi, <?= $_SESSION["user"]["customerName"] ?></div>
-                                    <?php if ($rowIncomingorder > 0): ?>
-                                        <div class="remind">
-                                            <span class="material-icons text-light fs-4 mx-2">notifications</span>
-                                            <a href="">你七天內有<?= $rowIncomingorder; ?>筆要成行的計畫! 快到你的訂單去看</a>
-                                        </div><!--remind-->
-
-                                    <?php else: ?>
-                                        <p class="welcomes">Welcome back!</p>
-                                    <?php endif; ?>
-                                </div>
-
-                            <?php elseif (isset($_SESSION["usercamp"])): ?>
-                                <div>
-                                    <div class="hello">Hi, <?= $_SESSION["usercamp"]["campOwnerName"] ?></div>
-
-                                    <?php if ($rowIncomingorderc > 0): ?>
-                                        <div class="remind">
-                                            <span class="material-icons text-light fs-4 mx-2">notifications</span>
-                                            <a href="">你七天內有<?= $rowIncomingorderc; ?>筆要招待的客人! 快到營地訂單去看</a>
-                                        </div>
-                                    <?php else: ?>
-                                        <p class="welcomes">Welcome back!</p>
-                                    <?php endif; ?>
-                                </div>
-
-                            <?php elseif (isset($_SESSION["usersuper"])): ?>
-                                <div class="hello">Hi, <?= $_SESSION["usersuper"]["superadminAccount"] ?></div>
-                            <?php else: ?>
-
-                            <?php endif; ?>
-                        </div>
-
-
-
-                    </div>
-
-                </main>
+                
             </div><!-- col-10 -->
         </div><!-- row -->
 

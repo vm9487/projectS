@@ -615,7 +615,11 @@ $dist = $resultdist->num_rows;
             </div><!-- col-4 -->
             <div class="col-lg-10">
                 <div class="container">
-                    <div class="py-2 d-flex justify-content-end">
+                    <div class="py-4 d-flex justify-content-center">
+                        <h1 class=" px-5 py-3 ">新增營地</h1>
+                        <div class="py-3 ps-5 ">
+                            <a class="btn btn-primary" href="camp-list.php">營地列表</a>
+                         </div>
 
                     </div>
                     <div class="row justify-content-center">

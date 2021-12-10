@@ -730,9 +730,13 @@ $cate3 = $resultcate3->num_rows;
                                     <label for="campCate1ID">露營類型</label>
                                     <select class="form-control" name="campCate1ID" id="campCate1ID" required>
 
-                                        <option value="<?= $row["campCate1ID"] ?>"><?= $row["campCate1item"] ?></option>
+
                                         <?php while ($row = $resultcate1->fetch_assoc()): ?>
-                                            <option value="<?= $row["campCate1ID"] ?>"><?= $row["campCate1item"] ?></option>
+                                            <option value="<?= $row["campCate1ID"] ?>"
+                                                <?php if($row["campCate1ID"]==$row1["campCate1ID"]){
+                                                    echo "selected";
+                                                }?>
+                                            ><?= $row["campCate1item"] ?></option>
                                         <?php endwhile; ?>
 
                                     </select>
@@ -743,9 +747,13 @@ $cate3 = $resultcate3->num_rows;
                                 <div class="mb-3">
                                     <label for="campCate3ID">露營主題</label>
                                     <select class="form-control" name="campCate3ID" id="campCate3ID" required>
-                                        <option value="<?= $row1["campCate3ID"] ?>"><?= $row1["campCate3item"] ?></option>
+
                                         <?php while ($row = $resultcate3->fetch_assoc()): ?>
-                                            <option value="<?= $row["campCate3ID"] ?>"><?= $row["campCate3item"] ?></option>
+                                            <option value="<?= $row["campCate3ID"] ?>"
+                                                <?php if($row["campCate3ID"]==$row2["campCate3ID"]){
+                                                    echo "selected";
+                                                }?>
+                                            ><?= $row["campCate3item"] ?></option>
                                         <?php endwhile; ?>
                                     </select>
                                     <div class="invalid-feedback">
@@ -755,9 +763,13 @@ $cate3 = $resultcate3->num_rows;
                                 <div class="mb-3">
                                     <label for="campRegion">營地區域</label>
                                     <select class="form-control" name="campRegionID" id="campRegionID" required>
-                                        <option value="<?= $row2["campRegionID"] ?>"><?= $row2["campRegion"] ?></option>
+
                                         <?php while ($row = $resultregion->fetch_assoc()): ?>
-                                            <option value="<?= $row["campRegionID"] ?>"><?= $row["campRegion"] ?></option>
+                                            <option value="<?= $row["campRegionID"] ?>"
+                                                <?php if($row["campRegionID"]==$row2["campRegionID"]){
+                                                    echo "selected";
+                                                }?>
+                                            ><?= $row["campRegion"] ?></option>
                                         <?php endwhile; ?>
                                     </select>
                                     <div class="invalid-feedback">
@@ -769,9 +781,13 @@ $cate3 = $resultcate3->num_rows;
                                     <label for="campCate2ID">營地市區</label>
 
                                     <select class="form-control" name="campCountyID" id="campCountyID" required>
-                                        <option value="<?= $row3["campCountyID"] ?>"><?= $row3["campCounty"] ?></option>
+
                                         <?php while ($row = $resultcounty->fetch_assoc()): ?>
-                                            <option value="<?= $row["campCountyID"] ?>"><?= $row["campCounty"] ?></option>
+                                            <option value="<?= $row["campCountyID"] ?>"
+                                                <?php if($row["campCountyID"]==$row3["campCountyID"]){
+                                                    echo "selected";
+                                                }?>
+                                            ><?= $row["campCounty"] ?></option>
                                         <?php endwhile; ?>
                                     </select>
                                     <div class="invalid-feedback">
@@ -783,16 +799,16 @@ $cate3 = $resultcate3->num_rows;
                                 <div class="mb-3">
                                     <label for="campDist">營地縣市</label>
                                     <select class="form-control" name="campDistID" id="campDistID" required>
-                                        <!-- <option value="<?= $row4["campDistID"] ?>"><?= $row4["campDist"] ?></option>
-                                        <option value="-------" disabled="disabled">-----------------</option> -->
-                                        <?php while ($row = $resultdist->fetch_assoc()): ?>
-                                            <option value="<?= $row["campDistID"] ?> " 
 
-                                            <?php if ($row["campDistID"]==$row4["campDistID"])
-                                            {echo "selected";}; ?>
-                                            >
-                                            <?= $row["campDist"] ?>
-                                        </option>
+
+                                        <?php while ($row = $resultdist->fetch_assoc()): ?>
+
+                                            <option value="<?= $row["campDistID"] ?>"
+                                   <?php if($row["campDistID"]==$row4["campDistID"]){
+                                       echo "selected";
+                                   }?>
+                                           > <?= $row["campDist"] ?></option>
+
                                         <?php endwhile; ?>
                                     </select>
                                     <div class="invalid-feedback">

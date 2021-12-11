@@ -50,6 +50,7 @@ WHERE customer_list.customerID=? ORDER BY headpicID DESC";
     try {
         $stmtheadpic->execute([$id]);
         $rowheadpic = $stmtheadpic->fetch();
+        $rowheadpic2 = $stmtheadpic->rowCount();
 //    var_dump($rowheadpic["customerPic"]);
     } catch (PDOException $e) {
         echo $e->getMessage();
@@ -70,6 +71,7 @@ WHERE camp_list.campOwnerID=? AND orderStatusID=1 AND DATE(orderDateStart) BETWE
     } catch (PDOException $e) {
         echo $e->getMessage();
     }
+    
 ////////////////////////////////////////////////////////////////////
     $sqlheadpicb = "SELECT upload_headpic.*, camp_owner_list.campOwnerID  
 FROM camp_owner_list JOIN upload_headpic 
@@ -83,7 +85,24 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
     } catch (PDOException $e) {
         echo $e->getMessage();
     };
-
+///////////////////////////有沒有頭貼////////////////////////////////////////////
+$sqlheadpicb = "SELECT upload_headpic.*, camp_owner_list.campOwnerID  
+FROM camp_owner_list JOIN upload_headpic 
+    ON camp_owner_list.campOwnerID=upload_headpic.campOwnerID
+WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
+    $stmtheadpicb2 = $db_host->prepare($sqlheadpicb);
+    try {
+        $stmtheadpicb2->execute([$id]);
+        $rowheadpicb2 = $stmtheadpicb2->rowCount();
+//    var_dump($rowheadpicb2);
+//          if ($rowheadpicb2==0){
+//          echo"yes";
+//         }else{echo "no";
+//         };
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    };
+/////////////////////////////////////////////////////////////////////////
 } elseif (isset($_SESSION["usersuper"])) {
 //    echo"super";
 
@@ -565,6 +584,14 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
                                     <?php else: ?>
                                         <p class="welcomes">Welcome back!</p>
                                     <?php endif; ?>
+                                    <!-- ----------------------------------------------- -->
+                                    <?php if ($rowheadpic2 == 0): ?>
+                                        <div class="remind">
+                                            <span class="material-icons text-light fs-4 mx-2">notifications</span>
+                                            <a href="p-profile.php">你還沒選過大頭貼耶，快來換上自己喜歡的頭像吧!</a>
+                                        </div><!--remind-->
+                                    <?php endif; ?>
+                                    
                                 </div>
 
                             <?php elseif (isset($_SESSION["usercamp"])): ?>
@@ -574,10 +601,18 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
                                     <?php if ($rowIncomingorderc > 0): ?>
                                         <div class="remind">
                                             <span class="material-icons text-light fs-4 mx-2">notifications</span>
-                                            <a href="">你七天內有<?= $rowIncomingorderc; ?>筆要招待的客人! 快到營地訂單去看</a>
+                                            <a href="owner_order_management.php">你七天內有<?= $rowIncomingorderc; ?>筆要招待的客人! 快到營地訂單去看</a>
                                         </div>
                                     <?php else: ?>
                                         <p class="welcomes">Welcome back!</p>
+                                    <?php endif; ?>
+                                    <!-- --------------------------------------------------------- -->
+                                    <!-- ------------------------------------- -->
+                                    <?php if ($rowheadpicb2 == 0): ?>
+                                        <div class="remind">
+                                            <span class="material-icons text-light fs-4 mx-2">notifications</span>
+                                            <a href="p-profile.php">你還沒選過大頭貼耶，快來換上自己喜歡的頭像吧!</a>
+                                        </div><!--remind-->
                                     <?php endif; ?>
                                 </div>
 

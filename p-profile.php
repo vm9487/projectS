@@ -463,15 +463,19 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
 
 
             </div><!-- col-2 -->
-            <div class="col-lg-10">
-                <main class="col-lg-5">
-                    <h2 class="ms-5 my-3">Personal information</h2>
-                    <form class="mx-5 py-5 border-top"  action="doUpdateProfile.php" method="post">
-                        <div class="mb-3 headbox">
+            <div class="col-lg-10"> 
+                
+                <div class="d-flex justify-content-center my-3 border-bottom">
+                 <h2>Personal information</h2>
+                </div>
+                <main class=" d-flex justify-content-center">
+                      <div class="mb-3 headbox">
                             <a class=" font-weight-bold changepic displayh " id="changepicbox" href="#"
                                onclick="window.open(' changepic.php ', 'uploadpic', config='height=400,width=600');">click
                                 to change</a>
                         </div>
+                    <form class="mx-5 py-5 "  action="doUpdateProfile.php" method="post">
+                     
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Account</label>
                             <?php foreach ($rowprofile2 as $value): ?>
@@ -511,7 +515,7 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
 //                                    elseif($G=0){$GF="checked"; $GM="";}
 //                                    else{} ?>
                               <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="gender"                                        id="gender" value="1"  >
+                                <input class="form-check-input" type="radio" name="gender"                                        id="gender" value="1" checked >
 <!--                                  --><?php //echo $GM ?>
                                 <label class="form-check-label" for="gender">
                                     Male

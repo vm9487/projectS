@@ -12,36 +12,7 @@ if ((isset($_SESSION["user"])) or (isset($_SESSION["usercamp"])) or (isset($_SES
 ///////////////////////////////////////////////////////////////////////
 if (isset($_SESSION["user"])) {
     $id = $_SESSION["user"]["customerID"];
-    $sqlIncomingorder = "SELECT * FROM order_detail WHERE customerID=? AND orderStatusID=1 AND DATE(orderDateStart) BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 7 DAY) ";
-    $stmtIncomingorder = $db_host->prepare($sqlIncomingorder);
-
-//    print_r($time) ;
-//    $nextWeek = time()+(7 * 24 * 60 * 60);
-//    echo(date("Y-m-d",$nextWeek));
-//    echo(date("Y-m-d",$t));
-    try {
-        $stmtIncomingorder->execute([$id]);
-        $rowIncomingorder = $stmtIncomingorder->rowCount();
-        $row2Incomingorder = $stmtIncomingorder->fetchAll(PDO::FETCH_ASSOC);
-//
-//        foreach ($row2Incomingorder as $value){
-//         echo   ($value["orderDateStart"]);
-//        }
-
-//
-//        foreach($row2Incomingorder as $row){
-//            foreach($row as $key => $value){
-//                print_r( $row["orderDateStart"]);
-////                echo $key." : ".$value."<br />";
-//}}
-
-
-
-    } catch (PDOException $e) {
-        echo $e->getMessage();
-    };
-////////////
-
+    
     $sqlheadpic = "SELECT upload_headpic.*, customer_list.customerID  
 FROM customer_list JOIN upload_headpic 
     ON customer_list.customerID=upload_headpic.customerID
@@ -57,6 +28,7 @@ WHERE customer_list.customerID=? ORDER BY headpicID DESC";
     // ----------------------訂單sql------------------------------------------------
 if (isset($_GET["status"])){
     $status=$_GET["status"];
+    var_dump($status);
     $sql="SELECT order_detail.*, customer_list.*, order_status.*, camp_list.*
     FROM (
              (order_detail JOIN customer_list 
@@ -81,6 +53,8 @@ if (isset($_GET["status"])){
         echo $e->getMessage();
     }
 }else{
+    // var_dump($status);
+    // echo" here";
     $sql="SELECT order_detail.*, customer_list.*, order_status.*, camp_list.*
     FROM (
              (order_detail JOIN customer_list 
@@ -105,75 +79,10 @@ if (isset($_GET["status"])){
 }
 
 
-// ------------------訂單sql----------------------------------------------------------
+// ------------------訂單sql----end------------------------------------------------------
 
 } elseif (isset($_SESSION["usercamp"])) {
 //    echo"usercamp";
-
-    $id = $_SESSION["usercamp"]["campOwnerID"];
-    $sqlIncomingorderc = "SELECT order_detail.*, camp_list.* 
-FROM order_detail JOIN camp_list ON order_detail.campID=camp_list.campID
-WHERE camp_list.campOwnerID=? AND orderStatusID=1 AND DATE(orderDateStart) BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 7 DAY)";
-    $stmtIncomingorderc = $db_host->prepare($sqlIncomingorderc);
-    try {
-        $stmtIncomingorderc->execute([$id]);
-        $rowIncomingorderc = $stmtIncomingorderc->rowCount();
-
-    } catch (PDOException $e) {
-        echo $e->getMessage();
-    }
-////////////////////////////////////////////////////////////////////
-    $sqlheadpicb = "SELECT upload_headpic.*, camp_owner_list.campOwnerID  
-FROM camp_owner_list JOIN upload_headpic 
-    ON camp_owner_list.campOwnerID=upload_headpic.campOwnerID
-WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
-    $stmtheadpicb = $db_host->prepare($sqlheadpicb);
-    try {
-        $stmtheadpicb->execute([$id]);
-        $rowheadpicb = $stmtheadpicb->fetch();
-//    var_dump($rowheadpicb["headpicFilename"]);
-    } catch (PDOException $e) {
-        echo $e->getMessage();
-    };
-    if (isset($_GET["status"])){
-    $status=$_GET["status"];
-    $sql="SELECT order_detail.*, customer_list.*, order_status.*, camp_list.*
-    FROM (
-             (order_detail JOIN customer_list 
-            ON order_detail.customerID = customer_list.customerID
-            )
-        JOIN order_status
-        ON order_detail.orderStatusID=order_status.orderStatusID
-        )
-    JOIN camp_list
-    ON order_detail.campID=camp_list.campID
-    WHERE order_detail.orderStatusID=$status AND campOwnerID=1
-    ORDER BY createdTime
-    ";
-}else{
-    $sql="SELECT order_detail.*, customer_list.*, order_status.*, camp_list.*
-    FROM (
-             (order_detail JOIN customer_list 
-            ON order_detail.customerID = customer_list.customerID
-            )
-        JOIN order_status
-        ON order_detail.orderStatusID=order_status.orderStatusID
-        )
-    JOIN camp_list
-    ON order_detail.campID=camp_list.campID
-    WHERE campOwnerID=1
-    ORDER BY createdTime
-    ";
-}
-$stmt=$db_host->prepare($sql);
-try {
-    $stmt->execute();
-    $row=$stmt->fetchAll(PDO::FETCH_ASSOC);
-    $rowCount=$stmt->rowCount();
-}catch (PDOException $e){
-    echo $e->getMessage();
-}
-
 
 } elseif (isset($_SESSION["usersuper"])) {
 //    echo"super";
@@ -723,7 +632,7 @@ try {
                                 <?php
                                 elseif($value["orderStatusID"]==2):
                                 ?>
-                                    <tr>
+                                    <tr class="table-dark">
                                         <td><?=$value["campName"]?></td>
                                         <td><?=$value["customerName"]?></td>
                                         <td><?=$value["customerPhone"]?></td>
@@ -774,9 +683,7 @@ try {
                                         <td><?=$value["orderStatusItem"]?></td>
                                         <td></td>
                                     </tr>
-                                <?php
-                                else:
-                                ?>
+                                <?php  else:  ?>
                                     <form action="doRecoverOrder.php" method="post">
                                         <tr class="table-secondary">
                                             <td><?=$value["campName"]?></td>
@@ -833,11 +740,9 @@ try {
                                             </td>
                                         </tr>
                                     </form>
-                            <?php
-                                endif;
+                            <?php endif;
                             endforeach;
-                            else:
-                            ?>
+                            else:?>
                                 <tr>
                                     <td colspan="9">沒有資料</td>
                                 </tr>

@@ -8,36 +8,6 @@ if ((isset($_SESSION["user"])) or (isset($_SESSION["usercamp"]))
 
 ///////////////////////////////////////////////////////////////////////
 if (isset($_SESSION["user"])) {
-    $id = $_SESSION["user"]["customerID"];
-    $sqlprofile = "SELECT * FROM customer_list WHERE customerID=? AND customerValid=1 ";
-    $stmtprofile = $db_host->prepare($sqlprofile);
-
-    try {
-        $stmtprofile->execute([$id]);
-        $rowprofile = $stmtprofile->rowCount();
-        $rowprofile2 = $stmtprofile->fetchAll(PDO::FETCH_ASSOC);
-//           foreach ($rowprofile2 as $value){
-//         echo   ($value["customerGender"]);
-//        }
-
-
-    } catch (PDOException $e) {
-        echo $e->getMessage();
-    };
-////////////
-
-    $sqlheadpic = "SELECT upload_headpic.*, customer_list.customerID  
-FROM customer_list JOIN upload_headpic 
-    ON customer_list.customerID=upload_headpic.customerID
-WHERE customer_list.customerID=? ORDER BY headpicID DESC";
-    $stmtheadpic = $db_host->prepare($sqlheadpic);
-    try {
-        $stmtheadpic->execute([$id]);
-        $rowheadpic = $stmtheadpic->fetch();
-//    var_dump($rowheadpic["customerPic"]);
-    } catch (PDOException $e) {
-        echo $e->getMessage();
-    };
 
 } elseif (isset($_SESSION["usercamp"])) {
 //    echo"usercamp";
@@ -82,7 +52,7 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
 <html lang="en">
 
 <head>
-    <title>Profile</title>
+    <title>All Year Sales</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -262,6 +232,11 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
         font-size: 30px;
         margin-left: 30px;
         color: var(--asidecolor);
+    }
+    .paint{
+        width: 70vw;
+        
+
     }
 </style>
 
@@ -466,118 +441,11 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
             <div class="col-lg-10"> 
                 
                 <div class="d-flex justify-content-center my-3 border-bottom">
-                 <h2>Personal information</h2>
+                 <h2>All Year Sales</h2>
                 </div>
                 <main class=" d-flex justify-content-center">
-                      <div class="mb-3 headbox">
-                            <a class=" font-weight-bold changepic displayh " id="changepicbox" href="#"
-                               onclick="window.open(' changepic.php ', 'uploadpic', config='height=400,width=600');">click
-                                to change</a>
-                        </div>
-                    <form class="mx-5 py-5 "  action="doUpdateProfile.php" method="post">
-                     
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Account</label>
-                            <?php foreach ($rowprofile2 as $value): ?>
-                            <?php if (isset($_SESSION["user"])): ?>
-                            <input type="email" class="form-control" id="account" aria-describedby="emailHelp" placeholder="<?=$value["customerAccount"]?>" disabled>
-                            <?php elseif (isset($_SESSION["usercamp"])): ?>
-                                    <input type="email" class="form-control" id="account" aria-describedby="emailHelp" placeholder="<?=$value["campOwnerAccount"]?>" disabled>
-                                <?php else: ?>
-                                <?php endif; ?>
-
-                            <?php endforeach;?>
-                        </div>
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <?php foreach ($rowprofile2 as $value): ?>
-                            <?php if (isset($_SESSION["user"])): ?>
-                            <input type="text" class="form-control"
-                 id="name" type="name" required name="name" value="<?=$value["customerName"]?>">
-                            <?php elseif (isset($_SESSION["usercamp"])): ?>
-                                    <input type="text" class="form-control"
-                                           id="name" type="name" name="name" value="<?=$value["campOwnerName"]?>" required >
-                                <?php else: ?>
-                                <?php endif; ?>
-                            <?php endforeach;?>
-                            <span class=" errorname errorc"></span>
-                        </div>
-                        <div class="mb-3">
-                            <div><label for="gender" class="form-label">Gender</label></div>
-<!--                            --><?php //foreach ($rowprofile2 as $value): ?>
-<!--                            --><?php
-//                            var_dump($value["customerGender"]);
-//                            if($value["customerGender"]!==1){echo"value=1";}else{echo"value!=1";};
-//                            ?>
-<!--                            --><?php //$G=($value["customerGender"]);
-//                                    if ($G=1){$GM="checked";
-//                                        $GF=""; echo $G;}
-//                                    elseif($G=0){$GF="checked"; $GM="";}
-//                                    else{} ?>
-                              <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="gender"                                        id="gender" value="1" checked >
-<!--                                  --><?php //echo $GM ?>
-                                <label class="form-check-label" for="gender">
-                                    Male
-                                </label>
-                            </div>
-                            <div class="form-check form-check-inline">
-
-                                <input class="form-check-input" type="radio" name="gender"                                            id="gender2" value="0" >
-<!--                                --><?php //echo $GF ?>
-                                <label class="form-check-label" for="gender2">
-                                    Female
-                                </label>
-
-<!--                                --><?php //endforeach;?>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="Bday" class="form-label">Birthday</label>
-                            <?php foreach ($rowprofile2 as $value): ?>
-                            <?php if (isset($_SESSION["user"])): ?>
-                            <input type="date" class="form-control" id="Birthday" name="Birthday" aria-describedby="emailHelp" value="<?=$value["customerBday"]?>" >
-                                <?php elseif (isset($_SESSION["usercamp"])): ?>
-                                    <input type="date" class="form-control" id="Birthday" name="Birthday"  value="<?=$value["campOwnerBday"]?>" >
-                                <?php else: ?>
-                                <?php endif; ?>
-                            <?php endforeach;?>
-                        </div>
-                        <div class="mb-3">
-                            <label for="Phone" class="form-label">Phone</label>
-                            <?php foreach ($rowprofile2 as $value): ?>
-                            <?php if (isset($_SESSION["user"])): ?>
-                            <input type="text" class="form-control inputform" name="Phone" id="Phone" value="<?=$value["customerPhone"]?>" >
-                                <?php elseif (isset($_SESSION["usercamp"])): ?>
-                                    <input type="text" class="form-control" name="Phone" id="Phone"  value="<?=$value["campOwnerPhone"]?>" >
-                                <?php else: ?>
-                                <?php endif; ?>
-                            <?php endforeach;?>
-                            <span class=" errorphone errorc"></span>
-                        </div>
-<!--                        ------------------------------------------------------->
-                        <?php foreach ($rowprofile2 as $value): ?>
-                        <?php if (isset($_SESSION["user"])): ?>
-                        <?php elseif (isset($_SESSION["usercamp"])): ?>
-                        <div class="mb-3">
-                            <label for="campOwnerCompanyName" class="form-label">Company Name</label>
-                                    <input type="text" class="form-control" name="Phone" id="Phone"  value="<?=$value["campOwnerCompanyName"]?>" ></div>
-                        <?php else: ?>
-                       <?php endif; ?>
-                        <?php endforeach;?>
-<!--                        ----------------------------------------------------------------->
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" name="password" id="password">
-                            <span class="fs-6"> A minimum password length of 8 characters<br> including at least one number, one lowercase and one uppercase letter.</span><br>
-                        </div>
-                        <div class="mb-3">
-                            <label for="repassword" class="form-label">Re-enter your password</label>
-                            <input type="password" class="form-control" name="repassword" id="repassword">
-                        </div>
-
-                        <button type="submit" class="btn btn-primary" id="joinbtn" >Submit</button>
-                    </form>
+                    <div class="paint"><canvas id="myChart"></canvas></div>
+                
                 </main>
 
             </div><!-- col-10 -->
@@ -599,51 +467,50 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 <!-- ---------------------------- -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.2/dist/chart.min.js"></script>
 <!-- ---------------------------- -->
 </body>
 
+<!-- type 是圖表類型，如果要改成圓餅圖，只要換成 pie 就可以了；而 labels 則是項目的標籤、資料則是以陣列形式放在 data.datasets.data 裡面。
+
+也可以在參數裡面加上 backgroundColor 和 borderColor，甚至是 borderWidth 線條寬度，就能畫出彩色的圖表唷～ -->
+
 <script>
-
-    let changepicbox = document.querySelector("#changepicbox")
-    let headbox = document.querySelector(".headbox")
-    headbox.addEventListener("mouseover", function () {
-        changepicbox.classList.remove("displayh");
-    })
-    headbox.addEventListener("mouseleave", function () {
-        changepicbox.classList.add("displayh");
-    })
-    // --------------------------
-    var ruleaccount= /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
-
-    var rulephone=/^[09]{2}[0-9]{8}$/;
-
-    var rulepassword=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{7,13}$/
-    // 字串必須包含數字->必須包含小寫字母->必須包含大寫字母->字串介於7~13字元間
-
-
-
-    // --------------------------------------------------
-
-    $(document).ready(function(){
-            $("#joinbtn").click(function(){
-
-                    if(rulephone.test($('#Phone').val())){}else{alert("請檢查手機")
-                        event.preventDefault()}
-                    if(rulepassword.test($('#password').val())){}else{alert("請檢查密碼並符合格式")
-                        event.preventDefault()}
-                    if($("#repassword").val()===$('#password').val()){}else{
-                        alert("密碼不相同")
-                        event.preventDefault();}
-
-
-                }
-            )
-
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange','test','test2','test3','test','test','test'],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
         }
-    )
-
+    }
+});
 
 
 </script>

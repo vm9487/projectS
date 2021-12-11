@@ -736,13 +736,16 @@ $campCount = $result->num_rows;
             <div class="col-lg-10">
                 <div>
                     <div class="row">
+                    <div class="d-flex justify-content-center my-3">
+        <h2>營地列表</h2>
+    </div>
                         <div class="py-2 d-flex justify-content-between">
 
                             <div>
                                 共 <?= $campCount ?> 筆營地上架
                             </div>
                             <div>
-                                <a role="button" class="btn btn-primary" href="camp-list.php">回列表</a>
+                                <!-- <a role="button" class="btn btn-primary" href="camp-list.php">回列表</a> -->
                                 <a class="btn btn-primary" href="camp-add.php">新增營地</a>
                             </div>
                         </div>

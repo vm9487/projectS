@@ -1,5 +1,5 @@
 <?php
-
+require_once("../db-PDOconnect4project.php");
 
 $campName = $_POST["campName"];
 $campPrice = $_POST["campPrice"];
@@ -14,7 +14,13 @@ $campCate3ID = $_POST["campCate3ID"];
 $campNote = $_POST["campNote"];
 $campDes= $_POST["campDes"];
 
+if (isset($_SESSION["usercamp"])) {
+//    echo"usercamp";
 
+    $id = $_SESSION["usercamp"]["campOwnerID"];
+
+
+}
 require_once("../db-connect.php");
 //$now = date("Y-m-d H:i:s");
 //echo $now;
@@ -24,7 +30,7 @@ if ($_FILES["myFile"]["error"] === 0 && move_uploaded_file($_FILES["myFile"]["tm
     $now = date("Y-m-d H:i:s");
     $file_name = $_FILES["myFile"]["name"];
 
-    $sql = "INSERT INTO camp_list(campName,campPrice,campPic, campCate1ID, campRegionID,campCountyID,campDistID,campAdd,campNote, campCate3ID,campDes) VALUES('$campName','$campPrice','$file_name', '$campCate1ID', '$campRegionID','$campCountyID', '$campDistID','$campAdd','$campNote','$campCate3ID','$campDes')";
+    $sql = "INSERT INTO camp_list(campOwnerID,campName,campPrice,campPic, campCate1ID, campRegionID,campCountyID,campDistID,campAdd,campNote, campCate3ID,campDes) VALUES('$id','$campName','$campPrice','$file_name', '$campCate1ID', '$campRegionID','$campCountyID', '$campDistID','$campAdd','$campNote','$campCate3ID','$campDes')";
 }
 
 if ($conn->query($sql) === TRUE) {

@@ -1,0 +1,19 @@
+/*模組*/
+.cover-fit{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+/*簡介*/
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}

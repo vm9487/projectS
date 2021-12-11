@@ -94,7 +94,7 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
 ////////////////////////////////////////////////////////////////////////
 
 require_once("../db-connect.php");
-$sql = "SELECT * FROM camp_list WHERE campValid=1 ";
+$sql = "SELECT * FROM camp_list WHERE campValid=1 AND campOwnerID = '$id' ";
 
 
 

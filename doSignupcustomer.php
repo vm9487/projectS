@@ -13,7 +13,7 @@ if($password!==$repassword){
     echo "<script>window.alert('密碼不相同，請重新註冊');location.href='p-signiupmainpageCustomer.php';</script>";
     exit();
 }
-//$password=md5($password);
+$password=md5($password);
 
 $sqlCheck="SELECT * FROM customer_list WHERE customerAccount= ?";
 $stmtCheck = $db_host->prepare($sqlCheck);

@@ -14,7 +14,7 @@ if($password!==$repassword){
     echo "<script>window.alert('密碼不相同，請重新註冊');location.href='p-signiupmainpageCampowner.php';</script>";
     exit();
 }
-//$password=md5($password);
+$password=md5($password);
 
 
 $sqlCheck="SELECT * FROM camp_owner_list WHERE campOwnerAccount= ?";

@@ -4,14 +4,15 @@ require_once("../db-PDOconnect4project.php");
 if(isset($_POST["email"])){
     $email=$_POST["email"];
     $password=$_POST["password"];
-//var_dump($password);
+    $password=md5($password);
+// var_dump($password);
 
 }else{
 //    echo " failure";
     exit();
 }
 
-//$password=md5($password);
+
 ///////////////////////////////////////////////////////////////
 $sqlcustomer="SELECT * FROM customer_list WHERE customerAccount=? AND customerPassword=? AND customerValid
 =1";

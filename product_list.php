@@ -198,27 +198,6 @@ $stmtFilter->execute($parameters);
 $row = $stmtFilter->fetchAll(PDO::FETCH_ASSOC);
 
 
-//--------------------新的篩選2--------------------
-//$param['search'] = $param['search1'] = !empty($_GET['search']) ? "%".$_GET['search']."%" : null;
-//$param['minPrice'] = $param['minPrice1']  = !empty($_GET['minPrice'])  ? $_GET['minPrice']  : null;
-//$param['maxPrice'] = $param['maxPrice1']  = !empty($_GET['maxPrice'])  ? $_GET['maxPrice']  : null;
-//$param['cate1'] = $param['cate11']  = !empty($_GET['cate1'])  ? $_GET['cate1']  : null;
-//$param['county'] = $param['county1']  = !empty($_GET['county'])  ? $_GET['county']  : null;
-//$param['cate3'] = $param['cate31']  = !empty($_GET['cate3'])  ? $_GET['cate3']  : null;
-//
-//$sqlFilter2 = "SELECT * FROM users
-//WHERE (search LIKE :search or :search1 is null)
-//AND   (minPrice  = :minPrice  or :minPrice1  is null)
-//AND   (maxPrice  != :maxPrice  or :maxPrice1  is null)
-//AND   (cate1  != :cate1  or :cate11  is null)
-//AND   (county  != :county  or :county1  is null)
-//AND   (cate3  != :cate3  or :cate31  is null)";
-//
-//$stmtFilter2 = $db_host->prepare($sqlFilter2);
-//$stmtFilter2->execute($param);
-//$row = $stmtFilter2->fetchAll(PDO::FETCH_ASSOC);
-
-
 //--------------------原本的篩選---------------------
 ////價格篩選
 //if(isset($_GET["minPrice"]) && isset($_GET["maxPrice"])){
@@ -298,13 +277,204 @@ $row = $stmtFilter->fetchAll(PDO::FETCH_ASSOC);
     <!-- Bootstrap CSS v5.0.2 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/header&aside_UI.php">
-    <link rel="stylesheet" href="css/product-list.css">
+    <!-- <link rel="stylesheet" href="css/header&aside_UI.php"> -->
+    <!-- <link rel="stylesheet" href="css/product-list.css"> -->
     <link rel="stylesheet" href="fontawesome-free-5.15.4-web/css/all.css">
+    <style>
+.coverfit {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+:root {
+    --bgcolor: rgb(147, 204, 192);
+    --acolor: rgba(61, 134, 112, 0.863);
+    --asidecolor: rgb(66, 168, 143);
+}
+
+.headera {
+    background: var(--bgcolor);
+}
+
+.logo {
+    width: 250px;
+    height: 50px;
+
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--acolor);
+
+}
+
+.headpic {
+    width: 50px;
+    height: 100%;
+    border-radius: 50%;
+
+}
+
+.headbox {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    padding: 2px;
+    border: 8px solid var(--bgcolor);
+
+    <?php if (isset($_SESSION["user"])): ?>
+
+<?php if(isset($rowheadpic["headpicFilename"])):?>
+background:  url("upload/<?=$rowheadpic["headpicFilename"]?>");
+    <?php else: ?>
+    background:  url("img/pepe.png");
+    <?php endif; ?>
+
+<?php elseif (isset($_SESSION["usercamp"])): ?>
+
+<?php if(isset($rowheadpicb["headpicFilename"])):?>
+background:  url("upload/<?=$rowheadpicb["headpicFilename"]?>");
+    <?php else: ?>
+    background:  url("img/pepe.png");
+    <?php endif; ?>
+
+<?php elseif (isset($_SESSION["usersuper"])):  ?>
+background:  url("img/pepe.png");
+    <?php else: ?>
+
+<?php endif; ?>
+
+
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    transition: 0.5s;
+
+}
+
+.headbox:hover {
+    <?php if (isset($_SESSION["user"])): ?>
+
+<?php if(isset($rowheadpic["headpicFilename"])):?>
+background: linear-gradient(180deg, rgba(0, 0, 0, 0) 10%,
+var(--asidecolor)), url("upload/<?=$rowheadpic["headpicFilename"]?>");
+    <?php else: ?>
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 10%,
+    var(--asidecolor)), url("img/pepe.png");
+    <?php endif; ?>
+
+<?php elseif (isset($_SESSION["usercamp"])): ?>
+
+<?php if(isset($rowheadpicb["headpicFilename"])):?>
+background: linear-gradient(180deg, rgba(0, 0, 0, 0) 10%,
+var(--asidecolor)), url("upload/<?=$rowheadpicb["headpicFilename"]?>");
+    <?php else: ?>
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 10%,
+    var(--asidecolor)), url("img/pepe.png");
+    <?php endif; ?>
+
+<?php elseif (isset($_SESSION["usersuper"])):  ?>
+background: linear-gradient(180deg, rgba(0, 0, 0, 0) 10%,
+var(--asidecolor)), url("img/pepe.png");
+    <?php else: ?>
+
+<?php endif; ?>
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    cursor: pointer;
+}
+
+.changepic {
+    margin: 120px 0px 0px 0px;
+    text-decoration: none;
+    display: flex;
+    width: 180px;
+    /*height: 200px;*/
+    padding: 0px;
+    color: whitesmoke;
+    justify-content: center;
+    align-items: end;
+}
+
+.changepic:hover {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+aside {
+    background-color: var(--asidecolor);
+    min-height: 100vw;
+}
+
+.block {
+    background: whitesmoke;
+    border-radius: 0 20px 20px 0px;
+    color: var(--acolor);
+    text-decoration: none;
+
+}
+
+
+.hello {
+    color: var(--asidecolor);
+    font-weight: bold;
+    font-size: 30px;
+    margin-left: 30px;
+}
+
+.remind {
+
+    font-weight: bold;
+    font-size: 30px;
+    margin-left: 30px;
+    background-color: var(--asidecolor);
+    border-radius: 5px;
+    padding: 5px;
+
+}
+
+.remind a {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.displayh {
+    display: none;
+}
+
+.welcomes {
+    font-weight: bold;
+    font-size: 30px;
+    margin-left: 30px;
+    color: var(--asidecolor);
+}
+
+/*模組*/
+.cover-fit{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+/*簡介*/
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+</style>
 
 </head>
 
-</style>
 
 <body>
 <header>

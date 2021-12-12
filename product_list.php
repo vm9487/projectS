@@ -1,6 +1,6 @@
 <?php
-// require_once ("../pdo_connect.php");
-require_once("../db-PDOconnect4project.php");
+require_once ("../pdo_connect.php");
+// require_once("../db-PDOconnect4project.php");
 
 //☆☆☆面板☆☆☆
 ///////////////////////////////////////////////////////////////////////
@@ -143,16 +143,16 @@ $conditions = [];
 $parameters = [];
 
 //價格篩選
+if (empty($_GET["minPrice"])){
+    $_GET["minPrice"]=0;
+}
+if (empty($_GET["maxPrice"])){
+    $_GET["maxPrice"]=9999;
+}
+$_GET["minPrice"]=(int)$_GET["minPrice"];
+$_GET["maxPrice"]=(int)$_GET["maxPrice"];
 if (isset($_GET["minPrice"]) && isset($_GET["maxPrice"]))
 {
-    if (empty($_GET["minPrice"])){
-        $_GET["minPrice"]=0;
-    }
-    if (empty($_GET["maxPrice"])){
-        $_GET["maxPrice"]=9999;
-    }
-    $_GET["minPrice"]=(int)$_GET["minPrice"];
-    $_GET["maxPrice"]=(int)$_GET["maxPrice"];
     $conditions[] = 'campPrice >=? AND campPrice <=?';
     $parameters[] = $_GET["minPrice"];
     $parameters[] = $_GET["maxPrice"];
@@ -475,7 +475,14 @@ a {
 
 </head>
 
-
+<header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 headera d-flex p-3 justify-content-between">
+                <div class="logo ">
+                    <img class="coverfit" src="./img/logo1.png" alt="logo">
+                </div>
+                <nav class=" ">
                     <a class="me-3" href="cart.php"><i class="fas fa-shopping-cart"></i></a>
                     <?php if (isset($_SESSION["user"])): ?>
                         <a href=""><?= $_SESSION["user"]["customerName"] ?></a>

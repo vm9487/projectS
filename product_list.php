@@ -1,6 +1,6 @@
 <?php
-// require_once ("../pdo_connect.php");
-require_once("../db-PDOconnect4project.php");
+require_once ("../pdo_connect.php");
+// require_once("../db-PDOconnect4project.php");
 if ((isset($_SESSION["user"])) or (isset($_SESSION["usercamp"])) or (isset($_SESSION["usersuper"]))) {
 //    var_dump($_SESSION["user"]);
 //    var_dump($_SESSION["user"]["customerID"]);
@@ -198,7 +198,7 @@ $sqlFilter = "SELECT * FROM camp_list";
 // 把條件組合成 query 語法
 if ($conditions)
 {
-    $sqlFilter .= " WHERE ".implode(" AND ", $conditions);
+    $sqlFilter .= " WHERE ".implode(" AND ", $conditions)." AND campValid=1";
 }
 
 // the usual prepare/execute/fetch routine

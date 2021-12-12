@@ -1,14 +1,14 @@
 <?php
 // require_once ("../pdo_connect.php");
 require_once("../db-PDOconnect4project.php");
-if ((isset($_SESSION["user"])) or (isset($_SESSION["usercamp"])) or (isset($_SESSION["usersuper"]))) {
-//    var_dump($_SESSION["user"]);
-//    var_dump($_SESSION["user"]["customerID"]);
-//    var_dump($_SESSION["usercamp"]);
-//    var_dump($_SESSION["usersuper"]);
-} else {
-    header("location: p-login.php");
-}
+// if ((isset($_SESSION["user"])) or (isset($_SESSION["usercamp"])) or (isset($_SESSION["usersuper"]))) {
+// //    var_dump($_SESSION["user"]);
+// //    var_dump($_SESSION["user"]["customerID"]);
+// //    var_dump($_SESSION["usercamp"]);
+// //    var_dump($_SESSION["usersuper"]);
+// } else {
+//     header("location: p-login.php");
+// }
 
 ///////////////////////////////////////////////////////////////////////
 if (isset($_SESSION["user"])) {
@@ -52,7 +52,7 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
 //    echo"super";
 
 } else {
-    echo "nothing";
+    // echo "nothing";
 
 };
 ////////////////////////////////////////////////////////////////////////

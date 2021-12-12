@@ -13,6 +13,8 @@ $startDate=$daterange[0];
 $endDate=$daterange[1];
 if (!isset($_SESSION["user"])) {
     echo "<script>alert('請用customer帳戶登入繼續'); location.href = 'doLogout.php';</script>";
+    $_SESSION["toContinue"]=1;
+    // echo $_SESSION["toContinue"];
  
 } else {
    

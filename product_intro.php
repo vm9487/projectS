@@ -82,7 +82,7 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
 //    echo"super";
 
 } else {
-    echo "nothing";
+    // echo "nothing";
 
 };
 ////////////////////////////////////////////////////////////////////////
@@ -408,8 +408,8 @@ aside {
 <!--                                    <input type="date" name="endDate" class="form-control" min="--><?//=$tomorrow?><!--" max="--><?//=$nextMonth?><!--">-->
 <!--                                </div>-->
 <!--                                日期-->
-                                <div class="px-5">
-                                    <input  type="text" name="daterange" value="<?=$tomorrow?> - <?=$nextMonth?>" class="datePicker ">
+                                <div class="">
+                                    <input  type="text" name="daterange" value="<?=$tomorrow?> - <?=$nextMonth?>" class="datePicker w-25">
                                 </div>
 <!--                                end-->
                                 <div class="mt-4">

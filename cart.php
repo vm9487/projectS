@@ -82,7 +82,7 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
 //    echo"super";
 
 } else {
-    echo "nothing";
+    echo "<script>alert('請登入繼續'); location.href = 'doLogout.php';</script>";
 
 };
 ////////////////////////////////////////////////////////////////////////

@@ -13,34 +13,7 @@ if ((isset($_SESSION["user"])) or (isset($_SESSION["usercamp"])) or (isset($_SES
 ///////////////////////////////////////////////////////////////////////
 if (isset($_SESSION["user"])) {
     $id = $_SESSION["user"]["customerID"];
-    $sqlIncomingorder = "SELECT * FROM order_detail WHERE customerID=? AND orderStatusID=1 AND DATE(orderDateStart) BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 7 DAY) ";
-    $stmtIncomingorder = $db_host->prepare($sqlIncomingorder);
-
-//    print_r($time) ;
-//    $nextWeek = time()+(7 * 24 * 60 * 60);
-//    echo(date("Y-m-d",$nextWeek));
-//    echo(date("Y-m-d",$t));
-    try {
-        $stmtIncomingorder->execute([$id]);
-        $rowIncomingorder = $stmtIncomingorder->rowCount();
-        $row2Incomingorder = $stmtIncomingorder->fetchAll(PDO::FETCH_ASSOC);
-//
-//        foreach ($row2Incomingorder as $value){
-//         echo   ($value["orderDateStart"]);
-//        }
-
-//
-//        foreach($row2Incomingorder as $row){
-//            foreach($row as $key => $value){
-//                print_r( $row["orderDateStart"]);
-////                echo $key." : ".$value."<br />";
-//}}
-
-
-
-    } catch (PDOException $e) {
-        echo $e->getMessage();
-    };
+  
 ////////////
 
     $sqlheadpic = "SELECT upload_headpic.*, customer_list.customerID  
@@ -60,17 +33,7 @@ WHERE customer_list.customerID=? ORDER BY headpicID DESC";
 //    echo"usercamp";
 
     $id = $_SESSION["usercamp"]["campOwnerID"];
-    $sqlIncomingorderc = "SELECT order_detail.*, camp_list.* 
-FROM order_detail JOIN camp_list ON order_detail.campID=camp_list.campID
-WHERE camp_list.campOwnerID=? AND orderStatusID=1 AND DATE(orderDateStart) BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 7 DAY)";
-    $stmtIncomingorderc = $db_host->prepare($sqlIncomingorderc);
-    try {
-        $stmtIncomingorderc->execute([$id]);
-        $rowIncomingorderc = $stmtIncomingorderc->rowCount();
-
-    } catch (PDOException $e) {
-        echo $e->getMessage();
-    }
+ 
 ////////////////////////////////////////////////////////////////////
     $sqlheadpicb = "SELECT upload_headpic.*, camp_owner_list.campOwnerID  
 FROM camp_owner_list JOIN upload_headpic 

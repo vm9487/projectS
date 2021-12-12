@@ -11,6 +11,13 @@ $daterange=$_POST["daterange"];
 $daterange=explode(' - ',$daterange);
 $startDate=$daterange[0];
 $endDate=$daterange[1];
+if (!isset($_SESSION["user"])) {
+    echo "<script>alert('請用customer帳戶登入繼續'); location.href = 'doLogout.php';</script>";
+ 
+} else {
+   
+
+
 
 if (!isset($_SESSION["cartArr"])){
     $cartArr=[
@@ -37,4 +44,6 @@ if (!isset($_SESSION["cartArr"])){
 }
 
 header("location: cart.php");
+
+};
 ?>

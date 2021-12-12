@@ -530,6 +530,9 @@ $customerExist=$result->num_rows;
           <div class="row justify-content-center">              
               <div class="col-lg-8">
               <div class="py-2">
+                    <div class="d-flex justify-content-center">
+                        <h2>顧客資料</h2>
+                     </div>
                   <a href="customer-list.php" class="btn btn-primary">回列表</a>
               </div>
                   <?php if($customerExist===0): ?>
@@ -571,7 +574,7 @@ $customerExist=$result->num_rows;
                             <th>照片</th>
                             <td>
                             <div class="figure ">  
-                        <img class="img-fluid cover-fit" src="images/<?=$row["customerPic"]?>" alt="">
+                        <img class="img-fluid cover-fit" src="img/<?=$row["customerPic"]?>" alt="">
                             </div>   
                             </td>
                         </tr>

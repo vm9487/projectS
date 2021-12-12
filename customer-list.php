@@ -567,6 +567,9 @@ $customer_listCount=$result->num_rows;
   <body>
       <div class="container">
           <div class="py-2">
+          <div class="d-flex justify-content-center">
+                        <h2>顧客列表</h2>
+                     </div>
               共 <?=$customer_listCount?> 位消費者
           </div>
           <table class="table table-bordered table-sm">

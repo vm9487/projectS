@@ -558,7 +558,7 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
 
 
             </div><!-- col-4 -->
-            <div class="col-lg-10">
+            <div class="col-lg-8">
             <div class="py-2">
             <div class="d-flex justify-content-center">
         <h2>營主資料</h2>
@@ -614,7 +614,7 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
                             <th>照片</th>
                             <td>
                             <div class="figure ">  
-                        <img class="img-fluid cover-fit" src="images/<?=$row["campOwnerPic"]?>" alt="">
+                        <img class="img-fluid cover-fit" src="img/<?=$row["campOwnerPic"]?>" alt="">
                             </div>   
                             </td>
                         </tr>

@@ -328,7 +328,7 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
                             <img class="coverfit headpic mx-2" src="upload/<?= $rowheadpic["headpicFilename"] ?>"
                                  alt="pepethefrog">
                         <?php else: ?>
-                            <img class="coverfit headpic mx-2" src="./img/pepe.png" alt="pepethefrog">
+                            <img class="coverfit headpic mx-2" src="img/pepe.png" alt="pepethefrog">
                         <?php endif; ?>
 
 
@@ -337,10 +337,10 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
                         <?php if(isset($rowheadpicb["headpicFilename"])):?>
                         <img class="coverfit headpic mx-2" src="upload/<?= $rowheadpicb["headpicFilename"] ?>" alt="pepethefrog">
                              <?php else: ?>
-                            <img class="coverfit headpic mx-2" src="./img/pepe.png" alt="pepethefrog">
+                            <img class="coverfit headpic mx-2" src="img/pepe.png" alt="pepethefrog">
                         <?php endif; ?>
                     <?php elseif (isset($_SESSION["usersuper"])): ?>
-                        <img class="coverfit headpic mx-2" src="./img/pepe.png" alt="pepethefrog">
+                        <img class="coverfit headpic mx-2" src="img/pepe.png" alt="pepethefrog">
                     <?php else: ?>
                     <?php endif; ?>
 

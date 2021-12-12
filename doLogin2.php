@@ -50,7 +50,7 @@ if(isset($_SESSION["toContinue"])){
             unset($_SESSION["error_message"]);
             unset($_SESSION["toContinue"]);
     //        var_dump($_SESSION["user"]);
-            echo "登入成功，將自動跳轉業面";
+            echo "登入成功，將自動跳轉頁面";
             header("Refresh:3;url=product_list.php");
     
     
@@ -130,7 +130,7 @@ if(isset($_SESSION["toContinue"])){
             unset($_SESSION["error_time"]);
             unset($_SESSION["error_message"]);
     //        var_dump($_SESSION["user"]);
-            echo "登入成功，將自動跳轉業面";
+            echo "登入成功，將自動跳轉頁面";
             header("Refresh:3;url=p-dashboard2.php");
     
     
@@ -145,7 +145,7 @@ if(isset($_SESSION["toContinue"])){
             unset($_SESSION["error_time"]);
             unset($_SESSION["error_message"]);
     //                var_dump($_SESSION["user"]);
-            echo "登入成功，將自動跳轉業面";
+            echo "登入成功，將自動跳轉頁面";
             header("Refresh:3;url=p-dashboard2.php");
     
         }elseif($userExistsuper>0){
@@ -159,7 +159,7 @@ if(isset($_SESSION["toContinue"])){
             unset($_SESSION["error_time"]);
             unset($_SESSION["error_message"]);
     //                var_dump($_SESSION["user"]);
-            echo "登入成功，將自動跳轉業面";
+            echo "登入成功，將自動跳轉頁面";
             header("Refresh:3;url=p-dashboard2.php");
     
     

@@ -1,5 +1,6 @@
 <?php
-require_once ("../pdo_connect.php");
+// require_once ("../pdo_connect.php");
+require_once("../db-PDOconnect4project.php");
 
 //☆☆☆面板☆☆☆
 ///////////////////////////////////////////////////////////////////////
@@ -277,7 +278,6 @@ $row = $stmtFilter->fetchAll(PDO::FETCH_ASSOC);
     <!-- Bootstrap CSS v5.0.2 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="css/header&aside_UI.php"> -->
     <!-- <link rel="stylesheet" href="css/product-list.css"> -->
     <link rel="stylesheet" href="fontawesome-free-5.15.4-web/css/all.css">
     <style>
@@ -476,15 +476,6 @@ a {
 </head>
 
 
-<body>
-<header>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12 headera d-flex p-3 justify-content-between">
-                <div class="logo ">
-                    <img class="coverfit" src="./img/logo1.png" alt="logo">
-                </div>
-                <nav class=" ">
                     <a class="me-3" href="cart.php"><i class="fas fa-shopping-cart"></i></a>
                     <?php if (isset($_SESSION["user"])): ?>
                         <a href=""><?= $_SESSION["user"]["customerName"] ?></a>

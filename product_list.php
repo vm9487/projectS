@@ -1,8 +1,15 @@
 <?php
-require_once ("../pdo_connect.php");
-// require_once("../db-PDOconnect4project.php");
+// require_once ("../pdo_connect.php");
+require_once("../db-PDOconnect4project.php");
+if ((isset($_SESSION["user"])) or (isset($_SESSION["usercamp"])) or (isset($_SESSION["usersuper"]))) {
+//    var_dump($_SESSION["user"]);
+//    var_dump($_SESSION["user"]["customerID"]);
+//    var_dump($_SESSION["usercamp"]);
+//    var_dump($_SESSION["usersuper"]);
+} else {
+    header("location: p-login.php");
+}
 
-//☆☆☆面板☆☆☆
 ///////////////////////////////////////////////////////////////////////
 if (isset($_SESSION["user"])) {
     $id = $_SESSION["user"]["customerID"];
@@ -86,6 +93,8 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
 
 };
 ////////////////////////////////////////////////////////////////////////
+
+
 
 $sql="SELECT * FROM camp_list WHERE campValid=1";
 $stmt=$db_host->prepare($sql);
@@ -199,78 +208,15 @@ $stmtFilter->execute($parameters);
 $row = $stmtFilter->fetchAll(PDO::FETCH_ASSOC);
 
 
-//--------------------原本的篩選---------------------
-////價格篩選
-//if(isset($_GET["minPrice"]) && isset($_GET["maxPrice"])){
-//    $minPrice=$_GET["minPrice"];
-//    $maxPrice=$_GET["maxPrice"];
-//    if($minPrice==="")$minPrice=0;
-//    if($maxPrice==="")$maxPrice=99999;
-//    $sqlFilter="SELECT * FROM camp_list WHERE campValid=1 AND campPrice >='$minPrice' AND campPrice <='$maxPrice'";
-//}
-////搜尋
-//else if(isset($_GET["search"])){
-//    $search=$_GET["search"];
-//    $sqlFilter="SELECT * FROM camp_list WHERE campValid=1 AND campName LIKE '%$search%'";
-//}
-////篩選類型cate1
-//else if (isset($_GET["cate1"])){
-//    $cate1=$_GET["cate1"];
-//    $sqlFilter="SELECT * FROM camp_list WHERE campValid=1 AND campCate1ID=$cate1";
-//}
-////地區篩選
-//else if (isset($_GET["county"])){
-//    $county=$_GET["county"];
-//    $sqlFilter="SELECT * FROM camp_list WHERE campValid=1 AND campCountyID=$county";
-//}
-//
-////篩選類型cate3
-//else if (isset($_GET["cate3"])){
-//    $cate3=$_GET["cate3"];
-//    $sqlFilter="SELECT * FROM camp_list WHERE campValid=1 AND campCate3ID=$cate3";
-//}
-//else{
-//    $minPrice=0;
-//    $maxPrice=99999;
-//
-////    頁數
-//    if(isset($_GET["p"])){
-//        $p=$_GET["p"];
-//    }
-//    else{
-//        $p=1;
-//    }
-//    $pageItems=9;
-//    $startItem=($p-1)*$pageItems;
-//    $pageCount=$rowCount/$pageItems;  // 頁數
-//    $pageR=$rowCount%$pageItems;
-//    $satrtNo=($p-1)*$pageItems+1;
-//    $endNO=$p*$pageItems;
-//    if($pageR!=0){
-//        $pageCount=ceil($pageCount); // 如果餘數不為0，則無條件進位
-////        $endNO=$endNO-($pageItems-$pageR);
-//        if($pageCount==$p){
-//            $endNO=$endNO-($pageItems-$pageR);
-//        }
-//    }
-//
-//    $sqlFilter="SELECT * FROM camp_list WHERE campValid=1 LIMIT $startItem, $pageItems";
-//}
-//
-//$stmtFilter=$db_host->prepare($sqlFilter);
-//try {
-//    $stmtFilter->execute();
-//    $row=$stmtFilter->fetchAll(PDO::FETCH_ASSOC);
-//}catch (PDOException $e){
-//    echo $e->getMessage();
-//}
 
 ?>
+
+
 <!doctype html>
 <html lang="en">
 
 <head>
-    <title>營地總覽</title>
+    <title>Frame</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -278,181 +224,183 @@ $row = $stmtFilter->fetchAll(PDO::FETCH_ASSOC);
     <!-- Bootstrap CSS v5.0.2 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="css/product-list.css"> -->
-    <link rel="stylesheet" href="fontawesome-free-5.15.4-web/css/all.css">
-    <style>
-.coverfit {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
 
-:root {
-    --bgcolor: rgb(147, 204, 192);
-    --acolor: rgba(61, 134, 112, 0.863);
-    --asidecolor: rgb(66, 168, 143);
-}
+</head>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+<style>
+    .coverfit {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 
-.headera {
-    background: var(--bgcolor);
-}
+    :root {
+        --bgcolor: rgb(147, 204, 192);
+        --acolor: rgba(61, 134, 112, 0.863);
+        --asidecolor: rgb(66, 168, 143);
+    }
 
-.logo {
-    width: 250px;
-    height: 50px;
+    .headera {
+        background: var(--bgcolor);
+    }
 
-}
+    .logo {
+        width: 250px;
+        height: 50px;
 
-nav a {
-    text-decoration: none;
-    color: var(--acolor);
+    }
 
-}
+    nav a {
+        text-decoration: none;
+        color: var(--acolor);
 
-.headpic {
-    width: 50px;
-    height: 100%;
-    border-radius: 50%;
+    }
 
-}
+    .headpic {
+        width: 50px;
+        height: 100%;
+        border-radius: 50%;
 
-.headbox {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    padding: 2px;
-    border: 8px solid var(--bgcolor);
+    }
+
+    .headbox {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        padding: 2px;
+        border: 8px solid var(--bgcolor);
 
     <?php if (isset($_SESSION["user"])): ?>
 
-<?php if(isset($rowheadpic["headpicFilename"])):?>
-background:  url("upload/<?=$rowheadpic["headpicFilename"]?>");
+    <?php if(isset($rowheadpic["headpicFilename"])):?>
+        background:  url("upload/<?=$rowheadpic["headpicFilename"]?>");
     <?php else: ?>
-    background:  url("img/pepe.png");
+        background:  url("img/pepe.png");
     <?php endif; ?>
 
-<?php elseif (isset($_SESSION["usercamp"])): ?>
+    <?php elseif (isset($_SESSION["usercamp"])): ?>
 
-<?php if(isset($rowheadpicb["headpicFilename"])):?>
-background:  url("upload/<?=$rowheadpicb["headpicFilename"]?>");
+    <?php if(isset($rowheadpicb["headpicFilename"])):?>
+        background:  url("upload/<?=$rowheadpicb["headpicFilename"]?>");
     <?php else: ?>
-    background:  url("img/pepe.png");
+        background:  url("img/pepe.png");
     <?php endif; ?>
 
-<?php elseif (isset($_SESSION["usersuper"])):  ?>
-background:  url("img/pepe.png");
+    <?php elseif (isset($_SESSION["usersuper"])):  ?>
+        background:  url("img/pepe.png");
     <?php else: ?>
 
-<?php endif; ?>
+    <?php endif; ?>
 
 
 
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    transition: 0.5s;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        transition: 0.5s;
 
-}
+    }
 
-.headbox:hover {
+    .headbox:hover {
     <?php if (isset($_SESSION["user"])): ?>
 
-<?php if(isset($rowheadpic["headpicFilename"])):?>
-background: linear-gradient(180deg, rgba(0, 0, 0, 0) 10%,
-var(--asidecolor)), url("upload/<?=$rowheadpic["headpicFilename"]?>");
+    <?php if(isset($rowheadpic["headpicFilename"])):?>
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 10%,
+        var(--asidecolor)), url("upload/<?=$rowheadpic["headpicFilename"]?>");
     <?php else: ?>
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 10%,
-    var(--asidecolor)), url("img/pepe.png");
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 10%,
+        var(--asidecolor)), url("img/pepe.png");
     <?php endif; ?>
 
-<?php elseif (isset($_SESSION["usercamp"])): ?>
+    <?php elseif (isset($_SESSION["usercamp"])): ?>
 
-<?php if(isset($rowheadpicb["headpicFilename"])):?>
-background: linear-gradient(180deg, rgba(0, 0, 0, 0) 10%,
-var(--asidecolor)), url("upload/<?=$rowheadpicb["headpicFilename"]?>");
+    <?php if(isset($rowheadpicb["headpicFilename"])):?>
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 10%,
+        var(--asidecolor)), url("upload/<?=$rowheadpicb["headpicFilename"]?>");
     <?php else: ?>
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 10%,
-    var(--asidecolor)), url("img/pepe.png");
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 10%,
+        var(--asidecolor)), url("img/pepe.png");
     <?php endif; ?>
 
-<?php elseif (isset($_SESSION["usersuper"])):  ?>
-background: linear-gradient(180deg, rgba(0, 0, 0, 0) 10%,
-var(--asidecolor)), url("img/pepe.png");
+    <?php elseif (isset($_SESSION["usersuper"])):  ?>
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 10%,
+    var(--asidecolor)), url("img/pepe.png");
     <?php else: ?>
 
-<?php endif; ?>
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    cursor: pointer;
-}
+    <?php endif; ?>
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        cursor: pointer;
+    }
 
-.changepic {
-    margin: 120px 0px 0px 0px;
-    text-decoration: none;
-    display: flex;
-    width: 180px;
-    /*height: 200px;*/
-    padding: 0px;
-    color: whitesmoke;
-    justify-content: center;
-    align-items: end;
-}
+    .changepic {
+        margin: 120px 0px 0px 0px;
+        text-decoration: none;
+        display: flex;
+        width: 180px;
+        /*height: 200px;*/
+        padding: 0px;
+        color: whitesmoke;
+        justify-content: center;
+        align-items: end;
+    }
 
-.changepic:hover {
-    text-decoration: none;
-    color: whitesmoke;
-}
+    .changepic:hover {
+        text-decoration: none;
+        color: whitesmoke;
+    }
 
-aside {
-    background-color: var(--asidecolor);
-    min-height: 100vw;
-}
+    aside {
+        background-color: var(--asidecolor);
+        min-height: 100vw;
+    }
 
-.block {
-    background: whitesmoke;
-    border-radius: 0 20px 20px 0px;
-    color: var(--acolor);
-    text-decoration: none;
+    .block {
+        background: whitesmoke;
+        border-radius: 0 20px 20px 0px;
+        color: var(--acolor);
+        text-decoration: none;
 
-}
+    }
 
 
-.hello {
-    color: var(--asidecolor);
-    font-weight: bold;
-    font-size: 30px;
-    margin-left: 30px;
-}
+    .hello {
+        color: var(--asidecolor);
+        font-weight: bold;
+        font-size: 30px;
+        margin-left: 30px;
+    }
 
-.remind {
+    .remind {
 
-    font-weight: bold;
-    font-size: 30px;
-    margin-left: 30px;
-    background-color: var(--asidecolor);
-    border-radius: 5px;
-    padding: 5px;
+        font-weight: bold;
+        font-size: 30px;
+        margin-left: 30px;
+        background-color: var(--asidecolor);
+        border-radius: 5px;
+        padding: 5px;
 
-}
+    }
 
-.remind a {
-    text-decoration: none;
-    color: whitesmoke;
-}
+    .remind a {
+        text-decoration: none;
+        color: whitesmoke;
+    }
 
-.displayh {
-    display: none;
-}
+    .displayh {
+        display: none;
+    }
 
-.welcomes {
-    font-weight: bold;
-    font-size: 30px;
-    margin-left: 30px;
-    color: var(--asidecolor);
-}
+    .welcomes {
+        font-weight: bold;
+        font-size: 30px;
+        margin-left: 30px;
+        color: var(--asidecolor);
+    }
 
-/*模組*/
+    /*模組*/
 .cover-fit{
     height: 100%;
     width: 100%;
@@ -475,6 +423,7 @@ a {
 
 </head>
 
+<body>
 <header>
     <div class="container-fluid">
         <div class="row">
@@ -506,8 +455,8 @@ a {
 
                     <?php elseif (isset($_SESSION["usercamp"])): ?>
                         <?php if(isset($rowheadpicb["headpicFilename"])):?>
-                            <img class="coverfit headpic mx-2" src="upload/<?= $rowheadpicb["headpicFilename"] ?>" alt="pepethefrog">
-                        <?php else: ?>
+                        <img class="coverfit headpic mx-2" src="upload/<?= $rowheadpicb["headpicFilename"] ?>" alt="pepethefrog">
+                             <?php else: ?>
                             <img class="coverfit headpic mx-2" src="./img/pepe.png" alt="pepethefrog">
                         <?php endif; ?>
                     <?php elseif (isset($_SESSION["usersuper"])): ?>
@@ -524,8 +473,7 @@ a {
 
 <div class="mainsection">
     <div class="container">
-        <main>
-            <h2 class="mt-3">營地總覽</h2>
+    <h2 class="mt-3">營地總覽</h2>
 <!--            <h4>分類篩選</h4>-->
             <div>
                 <div class="mt-3">
@@ -629,7 +577,7 @@ a {
                                 <div class="card m-3">
                                     <a href="product_intro.php?campID=<?=$value["campID"]?>">
                                         <figure class="m-0 ratio ratio-4x3">
-                                            <img  class="cover-fit" src="<?=$value["campPic"]?>" alt="">
+                                            <img  class="cover-fit" src="upload/<?=$value["campPic"]?>" alt="">
                                         </figure>
                                         <div class="m-3">
                                             <h4><?=$value["campName"]?></h4>
@@ -665,14 +613,31 @@ a {
                 </div>
             </form>
 
-        </main>
     </div><!-- container -->
+
 </div><!-- mainsection -->
 
+
 <!-- Bootstrap JavaScript Libraries -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
 </body>
+
+<script>
+    let changepicbox = document.querySelector("#changepicbox")
+    let headbox = document.querySelector(".headbox")
+    headbox.addEventListener("mouseover", function () {
+        changepicbox.classList.remove("displayh");
+    })
+    headbox.addEventListener("mouseleave", function () {
+        changepicbox.classList.add("displayh");
+    })
+    // --------------------------
+
+</script>
+
 </html>
-
-

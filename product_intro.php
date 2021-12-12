@@ -376,7 +376,7 @@ aside {
             ?>
                 <div class="row mt-5">
                     <figure>
-                        <img  class="cover-fit" src="<?=$value["campPic"]?>" alt="">
+                        <img  class="cover-fit" src="upload/<?=$value["campPic"]?>" alt="">
                     </figure>
                     <h1 class="mt-4 text-center"><?=$value["campName"]?></h1>
                     <h6>02-2636-6757</h6>

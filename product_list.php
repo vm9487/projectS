@@ -622,7 +622,7 @@ a {
                                 <div class="card m-3">
                                     <a href="product_intro.php?campID=<?=$value["campID"]?>">
                                         <figure class="m-0 ratio ratio-4x3">
-                                            <img  class="cover-fit" src="<?=$value["campPic"]?>" alt="">
+                                            <img  class="cover-fit" src="upload/<?=$value["campPic"]?>" alt="">
                                         </figure>
                                         <div class="m-3">
                                             <h4><?=$value["campName"]?></h4>

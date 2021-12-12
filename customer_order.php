@@ -28,7 +28,7 @@ WHERE customer_list.customerID=? ORDER BY headpicID DESC";
     // ----------------------訂單sql------------------------------------------------
 if (isset($_GET["status"])){
     $status=$_GET["status"];
-    var_dump($status);
+    // var_dump($status);
     $sql="SELECT order_detail.*, customer_list.*, order_status.*, camp_list.*
     FROM (
              (order_detail JOIN customer_list 

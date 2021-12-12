@@ -129,14 +129,17 @@ require_once("../db-PDOconnect4project.php");
                         <img class="img-fluid " src="img/glamping1.jpg" alt="">
                     </div>
                     <div class="login d-flex justify-content-center align-items-center flex-column">
-                        <h1 class="text-light fst-italic">Welcome to Glamping </h1>
+                        <!-- <h1 class="text-light fst-italic">Welcome to Glamping </h1> -->
+                        <h1 class="text-light fst-italic">歡迎來到 Glamping </h1>
                         <form class="d-flex justify-content-center align-items-center flex-column" action="doLogin2.php" method="post">
                             <?php $maxErrorTime = 2; ?>
                             <?php if (isset($_SESSION["error_time"]) && $_SESSION["error_time"] > $maxErrorTime) : ?>
                                 <h2>登入錯誤太多次</h2>
-                                <a class="text-decoration-none  align-self-center fw-5 ">forget password?</a>
+                                <!-- <a class="text-decoration-none  align-self-center fw-5 ">forget password?</a> -->
+                                <a class="text-decoration-none  align-self-center fw-5 ">忘記密碼?</a>
                             <?php else: ?>
-                            <h2 class="text-light">Please log in to continue</h2>
+                            <!-- <h2 class="text-light">Please log in to continue</h2> -->
+                            <h2 class="text-light">請登入後繼續</h2>
                             <div class="loginsm d-flex justify-content-center flex-column align-items-center">
                                 <div class="form-floating input-up">
                                     <input class=" form-control emailinput1 py-2 px-3 mt-2" type="email"
@@ -159,10 +162,11 @@ require_once("../db-PDOconnect4project.php");
                                 endif; ?>
                                 <!--                            ------------------------------------------->
                             </div>
-                            <a class="text-decoration-none  align-self-center fgpwd ">forget password?</a>
+                            <!-- <a class="text-decoration-none  align-self-center fgpwd ">forget password?</a> -->
+                            <a class="text-decoration-none  align-self-center fgpwd ">忘記密碼?</a>
 
                             <div class="d-flex pb-2">
-                                <button  class="m-2 signinbttn btn btn-light btn-sm" type="submit">Log in
+                                <button  class="m-2 signinbttn btn btn-light btn-sm" type="submit">登入
                                 </button>
 
                             </div>
@@ -170,7 +174,7 @@ require_once("../db-PDOconnect4project.php");
                         
                         <div class="line"><img class="img-fluid " src="img/mtnline.png" alt=""></div>
 
-                        <a href="p-signup.php" class="my-4 mx-2 signinbttn btn btn-light btn-sm" type="submit">Sign up
+                        <a href="p-signup.php" class="my-4 mx-2 signinbttn btn btn-light btn-sm" type="submit">註冊
                         </a>
                         <?php endif; ?>
                     </div>

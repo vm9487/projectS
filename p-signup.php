@@ -127,18 +127,23 @@
             <div class="col-lg-12">
                 <main class="justify-content-center d-flex flex-column align-items-center flex-column">
                     
-                    <h1 class="text-light fw-bold my-2">Welcome to Glamping</h1> <br>
-                    <h1 class="text-light fw-bold my-2">What would you like to do with us?</h1>
+                    <!-- <h1 class="text-light fw-bold my-2">Welcome to Glamping</h1> -->
+                    <h1 class="text-light fw-bold my-2">歡迎來到 Glamping</h1>
+                    <br>
+                    <!-- <h1 class="text-light fw-bold my-2">What would you like to do with us?</h1> -->
+                    <h1 class="text-light fw-bold my-2">你想要和我們一起....?</h1>
             
                     <div class="d-flex">
                         <a href="p-signiupmainpageCampowner.php" class="fotochoose d-flex flex-column align-items-center">
                             <img class="img-fluid" src="img/Graph-Magnifier-icon.png" alt="">
-                        <span class="remarks displayh ">I'm seeking for business chance.</span>
+                        <!-- <span class="remarks displayh ">I'm seeking for business chance.</span> -->
+                        <span class="remarks displayh ">我在尋找商業合作機會</span>
                         </a>
 
                         <a href="p-signiupmainpageCustomer.php" class="fotochoose d-flex flex-column align-items-center">
                             <img class="img-fluid" src="img/Flat-Tent.svg" alt="">
-                            <span class="remarks displayh ">I'd like to have some fun!</span>
+                            <!-- <span class="remarks displayh ">I'd like to have some fun!</span> -->
+                            <span class="remarks displayh ">我來找些樂子</span>
                         </a>
 
 

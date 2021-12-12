@@ -72,15 +72,15 @@
         color:whitesmoke;
         font-weight: bold;
         padding:5px;
-
+        
 
     }
     .errorc{
         padding:10px 10px 10px 0px;
         color:#edb3af;
-
-
-
+        
+        
+        
     }
 
 
@@ -97,7 +97,7 @@
                 </div>
                 <nav class=" ">
 
-                    <a href="p-login.php">回登入首頁</a>
+                    <a href="p-login.php">回網站首頁</a>
                 </nav>
             </div>
         </div><!-- row -->
@@ -110,83 +110,91 @@
             <div class="col-lg-12">
                 <main class="justify-content-center d-flex flex-column align-items-center flex-column px-5">
 
-                    <h1 class="text-light fw-bold my-2">Just a few steps away to join us...</h1> <br>
+                    <h1 class="text-light fw-bold my-2">只要幾步就可以加入我們...</h1>
+                    <!-- <h1 class="text-light fw-bold my-2">Just a few steps away to join us...</h1> -->
+                    <br>
 
 
                     <div class=" ">
                         <form class="g-5" action="doSignupcustomer.php" method="post"  >
 
                             <div class="row mb-1">
-                                <label class="col-form-label col-sm-3" for="account">Account</label>
+                                <!-- <label class="col-form-label col-sm-3" for="account">Account</label> -->
+                                <label class="col-form-label col-sm-3" for="account">信箱</label>
                                 <div class="col-sm-9 pb-2">
                                     <input id="account" type="text" name="account" class="form-control inputform  " required placeholder="name@example.com"  >
-                                    <span class="errorc  erroracc "></span>
+                                 <span class="errorc  erroracc "></span>
                                 </div>
                             </div>
 
                             <div class=" row mb-1">
-                                <label class="col-form-label col-sm-3" for="name">Name</label>
+                                <label class="col-form-label col-sm-3" for="name">姓名</label>
                                 <div class="col-sm-9 pb-2">
                                     <input id="name" type="name" name="name" class="form-control inputform" required >
-                                    <span class=" errorname errorc"></span>
+                                <span class=" errorname errorc"></span>
                                 </div>
-
+                                    
                             </div>
 
                             <div class="mb-1 row">
-                                <label for="Gender" class="col-form-label col-sm-3">Gender</label>
+                            <label for="Gender" class="col-form-label col-sm-3">性別</label>
                                 <!--                            ------------------->
                                 <div class="col-sm-9">
-                                    <div class="form-check form-check-inline mx-5">
-                                        <input class="form-check-input" type="radio" name="gender" id="gender" value="1" checked >
-                                        <label class="form-check-label" for="gender">
-                                            Male
-                                        </label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="gender1"  value="0">
-                                        <label class="form-check-label" for="gender1">
-                                            Female
-                                        </label>
-                                    </div>
+                                <div class="form-check form-check-inline mx-5">
+                                <input class="form-check-input" type="radio" name="gender" id="gender" value="1" checked >
+                                <label class="form-check-label" for="gender">
+                                    男
+                                </label>
                                 </div>
+                                <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="gender1"  value="0">
+                                <label class="form-check-label" for="gender1">
+                                    女
+                                    </label>
+                                    </div>
+                                    </div>
                                 <!--                            --------------------->
                             </div>
 
                             <div class="mb-1 row">
-                                <label class="col-form-label col-sm-3" for="Birthday">Birthday</label>
+                                <label class="col-form-label col-sm-3" for="Birthday">生日</label>
+                                <!-- <label class="col-form-label col-sm-3" for="Birthday">Birthday</label> -->
                                 <div class="col-sm-9 pb-2">
                                     <input id="Birthday" type="date" name="Birthday" class="form-control inputform" required >
                                     <span class="text-light errorbir errorc"></span>
                                 </div>
                             </div>
                             <div class="mb-1 row">
-                                <label class="col-form-label col-sm-3" for="Phone">Phone</label>
+                                <!-- <label class="col-form-label col-sm-3" for="Phone">Phone</label> -->
+                                <label class="col-form-label col-sm-3" for="Phone">電話</label>
                                 <div class="col-sm-9 pb-2">
                                     <input id="Phone" type="Phone" name="Phone" class="form-control inputform" required>
                                     <span class=" errorphone errorc"></span>
                                 </div>
                             </div>
-
                             <div class="mb-1 row">
-                                <label class="col-form-label col-sm-3" for="password">Password</label>
+                                <label class="col-form-label col-sm-3" for="password">密碼</label>
+
+                                <!-- <label class="col-form-label col-sm-3" for="password">Password</label> -->
                                 <div class="col-sm-9 pb-2">
                                     <input id="password" type="password" name="password" class="form-control inputform" required>
-                                    <span> A minimum password length of 8 characters<br> including at least one number, one lowercase and one uppercase letter.</span><br>
+                                    <span> 必須至少要有八個字元的長度<br> 包含一個數字，一個大寫字母和一個小寫字母。</span><br>
+                                    <!-- <span> A minimum password length of 8 characters<br> including at least one number, one lowercase and one uppercase letter.</span><br> -->
                                     <span class="errorpass errorc"></span>
                                 </div>
                             </div>
                             <div class="mb-2 row align-items-center">
-                                <label class="col-form-label col-sm-3" for="repassword">Re-enter your password</label>
+                                <label class="col-form-label col-sm-3" for="repassword">重新輸入一次你的密碼</label>
+                                <!-- <label class="col-form-label col-sm-3" for="repassword">Re-enter your password</label> -->
                                 <div class="col-sm-9 pb-3">
                                     <input  id="repassword" type="password" name="repassword"
-                                            class="form-control inputform" required >
-                                    <span class=" errorrepass errorc"></span>
+                                           class="form-control inputform" required >
+                                           <span class=" errorrepass errorc"></span>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center justify-content-center gt-5">
-                                <button class="btn btn-light m-3" type="submit" id="joinbtn" >Join!</button>
-                                <a href="p-login.php" class="btn btn-light m-3" type="submit">I'll think about it</a>
+                            <button class="btn btn-light m-3" type="submit" id="joinbtn" >加入!</button>
+                            <a href="p-login.php" class="btn btn-light m-3" type="submit">我再想想</a>
                             </div>
                         </form>
 
@@ -214,151 +222,151 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-<!-- ---------------------------- -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <!-- ---------------------------- -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-<!-- ---------------------------- -->
+        <!-- ---------------------------- -->
 
 
 <script>
 
-    // $("#name").css("background","black")
-    // $("#name").click(function(){ })
-    // $('#name').focus(function(){
-    //     console.log("hello")});
+// $("#name").css("background","black")
+// $("#name").click(function(){ })
+// $('#name').focus(function(){
+//     console.log("hello")});
 
-    // $('#name')
-    // $('#account')
-    // $('#gender')
-    // $('#Birthday')
-    // $('#Phone')
-    // $('#password')
-    // $('#repassword')
-    // $('#joinbtn')
-    var ruleaccount= /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+// $('#name')
+// $('#account')
+// $('#gender')
+// $('#Birthday')
+// $('#Phone')
+// $('#password')
+// $('#repassword')
+// $('#joinbtn')
+var ruleaccount= /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
 
-    var rulephone=/^[09]{2}[0-9]{8}$/;
+var rulephone=/^[09]{2}[0-9]{8}$/;
 
-    var rulepassword=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{7,13}$/
-    // 字串必須包含數字->必須包含小寫字母->必須包含大寫字母->字串介於7~13字元間
-
-
-
-    // --------------------------------------------------
-
-    $('#account').focus(function(){
-        $(this).css("background","#e1f2e9")
-        if($('.erroracc').text('')!==""){
-            $('.erroracc').text('')
-        }
-    })
-
-
-    $('#name').focus(function(){
-        $(this).css("background","#e1f2e9")
-        if($('.errorname').text('')!==""){
-            $('.errorname').text('')
-        }
-    })
-
-
-    $('#Phone').focus(function(){
-        $(this).css("background","#e1f2e9")
-        if($('.errorphone').text('')!==""){
-            $('.errorphone').text('')
-        }
-    })
-
-
-    $('#password').focus(function(){
-        $(this).css("background","#e1f2e9")
-        if($('.errorpass').text('')!==""){
-            $('.errorpass').text('')
-        }
-
-    })
+var rulepassword=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{7,13}$/
+// 字串必須包含數字->必須包含小寫字母->必須包含大寫字母->字串介於7~13字元間
 
 
 
-    $('#repassword').focus(function(){
-        $(this).css("background","#e1f2e9")
-        if($('.errorrepass').text('')!==""){
-            $('.errorrepass').text('')
-        }
-    })
-    // ----------------------------------------------------
+// --------------------------------------------------
 
-    // ----------------------------
-    $('#account').blur(function(){
-        if(ruleaccount.test($('#account').val())){
-            $('.error1').text('')
-            $(this).css("background","")
-        }else{
-            $('.erroracc').text('Please enter your email')
-            $(this).css("background","#f2e2e1")
-        }})
-    // -------------------------------
-    $('#Phone').blur(function(){
-        if(rulephone.test($('#Phone').val())){
-            $('.error1').text('')
-            $(this).css("background","")
-        }else{
-            $('.errorphone').text('Please reenter your phone number')
-            $(this).css("background","#f2e2e1")
-        }})
-    // -------------------------------
-    $('#password').blur(function(){
-        if(rulepassword.test($('#password').val())){
-            $('.error1').text('')
-            $(this).css("background","")
-        }else{
-            $('.errorpass').text('Passwords do not match the rules')
-            $(this).css("background","#f2e2e1")
-        }})
-    // -------------------------------
-    $('#repassword').blur(function(){
-        if($("#repassword").val()===$('#password').val()){
-            $('.errorrepass').text('')
-            $(this).css("background","")
-        }else{
-            $('.errorrepass').text('Passwords do not match')
-            $(this).css("background","#f2e2e1")
-        }})
-    // -------------------------------
-    $('#name').blur(function(){
-        if($("#name").val()!==""){
-            $('.errorname').text('')
-            $(this).css("background","")
-        }else{
-            $('.errorname').text('Cannot be empty')
-            $(this).css("background","#f2e2e1")
-        }})
-
-    //    ------------------------------------
-
-    $(document).ready(function(){
-            $("#joinbtn").click(function(){
-                    if(ruleaccount.test($('#account').val())){}else{alert("請檢查信箱")
-                        event.preventDefault()}
-                    if(rulephone.test($('#Phone').val())){}else{alert("請檢查手機")
-                        event.preventDefault()}
-                    if(rulepassword.test($('#password').val())){}else{alert("請檢查密碼並符合格式")
-                        event.preventDefault()}
-                    if($("#repassword").val()===$('#password').val()){}else{
-                        alert("密碼不相同")
-                        event.preventDefault();}
+              $('#account').focus(function(){
+    $(this).css("background","#e1f2e9")
+    if($('.erroracc').text('')!==""){
+        $('.erroracc').text('')
+    }
+            })
 
 
-                }
-            )
+             $('#name').focus(function(){
+    $(this).css("background","#e1f2e9")
+    if($('.errorname').text('')!==""){
+        $('.errorname').text('')
+    }
+            })
 
-        }
+
+            $('#Phone').focus(function(){
+    $(this).css("background","#e1f2e9")
+    if($('.errorphone').text('')!==""){
+        $('.errorphone').text('')
+    }
+            })
+
+
+            $('#password').focus(function(){
+    $(this).css("background","#e1f2e9")
+    if($('.errorpass').text('')!==""){
+        $('.errorpass').text('')
+    }
+
+            })
+            
+
+
+            $('#repassword').focus(function(){
+    $(this).css("background","#e1f2e9")
+    if($('.errorrepass').text('')!==""){
+        $('.errorrepass').text('')
+    }
+            })
+// ----------------------------------------------------
+
+// ----------------------------
+$('#account').blur(function(){
+    if(ruleaccount.test($('#account').val())){
+$('.error1').text('')
+$(this).css("background","")
+    }else{
+        $('.erroracc').text('Please enter your email')
+        $(this).css("background","#f2e2e1")    
+           }})  
+// -------------------------------
+$('#Phone').blur(function(){
+    if(rulephone.test($('#Phone').val())){
+$('.error1').text('')
+$(this).css("background","")
+    }else{
+        $('.errorphone').text('Please reenter your phone number')
+        $(this).css("background","#f2e2e1")    
+           }})  
+// -------------------------------
+$('#password').blur(function(){
+    if(rulepassword.test($('#password').val())){
+$('.error1').text('')
+$(this).css("background","")
+    }else{
+        $('.errorpass').text('Passwords do not match the rules')
+        $(this).css("background","#f2e2e1")    
+           }})  
+ // -------------------------------         
+$('#repassword').blur(function(){
+    if($("#repassword").val()===$('#password').val()){
+        $('.errorrepass').text('')
+$(this).css("background","")
+    }else{
+        $('.errorrepass').text('Passwords do not match')
+        $(this).css("background","#f2e2e1")    
+           }})  
+ // -------------------------------         
+ $('#name').blur(function(){
+    if($("#name").val()!==""){
+        $('.errorname').text('')
+$(this).css("background","")
+    }else{
+        $('.errorname').text('Cannot be empty')
+        $(this).css("background","#f2e2e1")    
+           }})  
+
+        //    ------------------------------------
+
+$(document).ready(function(){
+    $("#joinbtn").click(function(){
+if(ruleaccount.test($('#account').val())){}else{alert("請檢查信箱")
+event.preventDefault()}
+if(rulephone.test($('#Phone').val())){}else{alert("請檢查手機")
+event.preventDefault()}
+if(rulepassword.test($('#password').val())){}else{alert("請檢查密碼並符合格式")
+event.preventDefault()}
+if($("#repassword").val()===$('#password').val()){}else{
+alert("密碼不相同")
+event.preventDefault();}
+
+
+    }
     )
 
+ }
+ )
+            
 
-
-    // }
-    // }else{document.form.submit();}
+       
+        // }
+        // }else{document.form.submit();}
 
 
 

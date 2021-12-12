@@ -466,7 +466,8 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
             <div class="col-lg-10"> 
                 
                 <div class="d-flex justify-content-center my-3 border-bottom">
-                 <h2>Personal information</h2>
+                 <h2>個人資料</h2>
+                 <!-- <h2>Personal information</h2> -->
                 </div>
                 <main class=" d-flex justify-content-center">
                       <div class="mb-3 headbox">
@@ -477,7 +478,8 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
                     <form class="mx-5 py-5 "  action="doUpdateProfile.php" method="post">
                      
                         <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Account</label>
+                            <label for="exampleInputEmail1" class="form-label">帳號</label>
+                            <!-- <label for="exampleInputEmail1" class="form-label">Account</label> -->
                             <?php foreach ($rowprofile2 as $value): ?>
                             <?php if (isset($_SESSION["user"])): ?>
                             <input type="email" class="form-control" id="account" aria-describedby="emailHelp" placeholder="<?=$value["customerAccount"]?>" disabled>
@@ -489,7 +491,8 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
                             <?php endforeach;?>
                         </div>
                         <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
+                            <label for="name" class="form-label">姓名</label>
+                            <!-- <label for="name" class="form-label">Name</label> -->
                             <?php foreach ($rowprofile2 as $value): ?>
                             <?php if (isset($_SESSION["user"])): ?>
                             <input type="text" class="form-control"
@@ -503,7 +506,9 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
                             <span class=" errorname errorc"></span>
                         </div>
                         <div class="mb-3">
-                            <div><label for="gender" class="form-label">Gender</label></div>
+                            <div><label for="gender" class="form-label">性別</label>
+                            <!-- <label for="gender" class="form-label">Gender</label> -->
+                        </div>
 <!--                            --><?php //foreach ($rowprofile2 as $value): ?>
 <!--                            --><?php
 //                            var_dump($value["customerGender"]);
@@ -518,7 +523,7 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
                                 <input class="form-check-input" type="radio" name="gender"                                        id="gender" value="1" checked >
 <!--                                  --><?php //echo $GM ?>
                                 <label class="form-check-label" for="gender">
-                                    Male
+                                    男
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
@@ -526,14 +531,15 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
                                 <input class="form-check-input" type="radio" name="gender"                                            id="gender2" value="0" >
 <!--                                --><?php //echo $GF ?>
                                 <label class="form-check-label" for="gender2">
-                                    Female
+                                    女
                                 </label>
 
 <!--                                --><?php //endforeach;?>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="Bday" class="form-label">Birthday</label>
+                            <label for="Bday" class="form-label">生日</label>
+                            <!-- <label for="Bday" class="form-label">Birthday</label> -->
                             <?php foreach ($rowprofile2 as $value): ?>
                             <?php if (isset($_SESSION["user"])): ?>
                             <input type="date" class="form-control" id="Birthday" name="Birthday" aria-describedby="emailHelp" value="<?=$value["customerBday"]?>" >
@@ -544,7 +550,8 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
                             <?php endforeach;?>
                         </div>
                         <div class="mb-3">
-                            <label for="Phone" class="form-label">Phone</label>
+                            <label for="Phone" class="form-label">手機</label>
+                            <!-- <label for="Phone" class="form-label">Phone</label> -->
                             <?php foreach ($rowprofile2 as $value): ?>
                             <?php if (isset($_SESSION["user"])): ?>
                             <input type="text" class="form-control inputform" name="Phone" id="Phone" value="<?=$value["customerPhone"]?>" >
@@ -560,23 +567,26 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
                         <?php if (isset($_SESSION["user"])): ?>
                         <?php elseif (isset($_SESSION["usercamp"])): ?>
                         <div class="mb-3">
-                            <label for="campOwnerCompanyName" class="form-label">Company Name</label>
+                            <label for="campOwnerCompanyName" class="form-label">營地名稱</label>
+                            <!-- <label for="campOwnerCompanyName" class="form-label">Company Name</label> -->
                                     <input type="text" class="form-control" name="Phone" id="Phone"  value="<?=$value["campOwnerCompanyName"]?>" ></div>
                         <?php else: ?>
                        <?php endif; ?>
                         <?php endforeach;?>
 <!--                        ----------------------------------------------------------------->
                         <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
+                            <label for="password" class="form-label">密碼</label>
+                            <!-- <label for="password" class="form-label">Password</label> -->
                             <input type="password" class="form-control" name="password" id="password">
-                            <span class="fs-6"> A minimum password length of 8 characters<br> including at least one number, one lowercase and one uppercase letter.</span><br>
+                            <span class="fs-6"> 必須至少要有八個字元的長度<br> 包含一個數字，一個大寫字母和一個小寫字母。</span><br>
                         </div>
                         <div class="mb-3">
-                            <label for="repassword" class="form-label">Re-enter your password</label>
+                            <label for="repassword" class="form-label">重新輸入一次你的密碼</label>
+                            <!-- <label for="repassword" class="form-label">Re-enter your password</label> -->
                             <input type="password" class="form-control" name="repassword" id="repassword">
                         </div>
 
-                        <button type="submit" class="btn btn-primary" id="joinbtn" >Submit</button>
+                        <button type="submit" class="btn btn-primary" id="joinbtn" >確定修改</button>
                     </form>
                 </main>
 

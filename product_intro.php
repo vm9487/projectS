@@ -360,7 +360,7 @@ aside {
                     <?php else: ?>
                     <?php endif; ?>
 
-                    <a href="product_list.php">回網站首頁</a>
+                    <a href="p-dashboard2.php">前往後台</a>
                 </nav>
             </div>
         </div><!-- row -->
@@ -408,8 +408,8 @@ aside {
 <!--                                    <input type="date" name="endDate" class="form-control" min="--><?//=$tomorrow?><!--" max="--><?//=$nextMonth?><!--">-->
 <!--                                </div>-->
 <!--                                日期-->
-                                <div>
-                                    <input type="text" name="daterange" value="<?=$tomorrow?> - <?=$nextMonth?>" class="datePicker">
+                                <div class="">
+                                    <input  type="text" name="daterange" value="<?=$tomorrow?> - <?=$nextMonth?>" class="datePicker w-25">
                                 </div>
 <!--                                end-->
                                 <div class="mt-4">

@@ -122,7 +122,7 @@ try {
 <html lang="en">
 
 <head>
-    <title>Frame</title>
+    <title>Checking out</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -351,7 +351,7 @@ aside {
                     <?php else: ?>
                     <?php endif; ?>
 
-                    <a href="product_list.php">回網站首頁</a>
+                    <a href="p-dashboard2.php">前往後台</a>
                 </nav>
             </div>
         </div><!-- row -->

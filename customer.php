@@ -594,7 +594,7 @@ $customerExist=$result->num_rows;
                         </tr>
                         <tr>
                             <th>性別</th>
-                            <td><?php if ($row["campOwnerGender"] == 0) {
+                            <td><?php if ($row["customerGender"] == 0) {
                       echo 'female' ;
                       }else {
                         echo 'male';

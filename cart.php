@@ -335,7 +335,7 @@ aside {
                     <?php else: ?>
                     <?php endif; ?>
 
-                    <a href="product_list.php">回網站首頁</a>
+                    <a href="p-dashboard2.php">前往後台</a>
                 </nav>
             </div>
         </div><!-- row -->

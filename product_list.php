@@ -1,6 +1,6 @@
 <?php
-require_once ("../pdo_connect.php");
-// require_once("../db-PDOconnect4project.php");
+// require_once ("../pdo_connect.php");
+require_once("../db-PDOconnect4project.php");
 if ((isset($_SESSION["user"])) or (isset($_SESSION["usercamp"])) or (isset($_SESSION["usersuper"]))) {
 //    var_dump($_SESSION["user"]);
 //    var_dump($_SESSION["user"]["customerID"]);
@@ -216,7 +216,7 @@ $row = $stmtFilter->fetchAll(PDO::FETCH_ASSOC);
 <html lang="en">
 
 <head>
-    <title>Frame</title>
+    <title>Product list</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -228,6 +228,7 @@ $row = $stmtFilter->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
+      <link rel="stylesheet" href="fontawesome-free-5.15.4-web/css/all.css">
 <style>
     .coverfit {
         width: 100%;
@@ -464,7 +465,7 @@ a {
                     <?php else: ?>
                     <?php endif; ?>
 
-                    <a href="product_list.php">回網站首頁</a>
+                    <a href="p-dashboard2.php">前往後台</a>
                 </nav>
             </div>
         </div><!-- row -->

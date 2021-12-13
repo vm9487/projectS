@@ -583,7 +583,7 @@ $customerExist=$result->num_rows;
                 <?php else: 
                      $row=$result->fetch_assoc();
                     ?>
-            <form action="doUpdate.php" method="post">
+            <form action="doUpdate(customer).php" method="post">
                 <input type="hidden" name="customerID" value="<?=$row["customerID"]?>">
                 <div class="mb-3">
                     <label for="account">帳號</label>
@@ -620,7 +620,7 @@ $customerExist=$result->num_rows;
                 <div class="mb-3">
                 <label for="picture">照片</label>
                         <div class="figure ">  
-                            <img class="img-fluid cover-fit" src="images/<?=$row["customerPic"]?>" alt="">
+                            <img class="img-fluid cover-fit" src="img/<?=$row["customerPic"]?>" alt="">
                         </div>                                                     
                 </div>
                 <button class="btn btn-primary" type="submit">送出</button>

@@ -9,19 +9,6 @@ if ((isset($_SESSION["user"])) or (isset($_SESSION["usercamp"])) or (isset($_SES
     header("location: p-login.php");
 }
 
-//////////////////////////////////////////////////////////////////////
-
-if(isset($_GET["campOwnerID"])){
-    $campOwnerID=$_GET["campOwnerID"];
-}else{
-    $campOwnerID=0;
-}
-require_once ("../db-connect.php");
-$sql="SELECT * FROM camp_owner_list WHERE campOwnerID='$campOwnerID' AND campOwnerValid=1";
-$result=$conn->query($sql);
-$campOwnerExist=$result->num_rows;
-
-
 ///////////////////////////////////////////////////////////////////////
 if (isset($_SESSION["user"])) {
     $id = $_SESSION["user"]["customerID"];
@@ -113,7 +100,7 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
 <html lang="en">
 
 <head>
-    <title>Edit campowner</title>
+    <title>Frame</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -125,7 +112,6 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
 </head>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-      <link rel="stylesheet" href="headpicimage.css">
 <style>
     .coverfit {
         width: 100%;
@@ -557,7 +543,31 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
 
             </div><!-- col-4 -->
             <div class="col-lg-10">
-            <div class="d-flex justify-content-center">
+            <?php
+if(isset($_GET["campOwnerID"])){
+    $campOwnerID=$_GET["campOwnerID"];
+}else{
+    $campOwnerID=0;
+}
+require_once ("../db-connect.php");
+$sql="SELECT * FROM camp_owner_list WHERE campOwnerID='$campOwnerID' AND campOwnerValid=1";
+$result=$conn->query($sql);
+$campOwnerExist=$result->num_rows;
+?>
+<!doctype html>
+<html lang="en">
+<head>
+    <title>campowner-edit</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS v5.0.2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="headpicimage.css">
+</head>
+<body>
+    <div class="d-flex justify-content-center">
         <h2>營主管理</h2>
     </div>
 <div class="container">
@@ -573,7 +583,7 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
                 <?php else: 
                      $row=$result->fetch_assoc();
                     ?>
-            <form action="doUpdate.php" method="post">
+            <form action="doUpdate(campowner).php" method="post">
                 <input type="hidden" name="campOwnerID" value="<?=$row["campOwnerID"]?>">
                 <div class="mb-3">
                     <label for="account">帳號</label>
@@ -614,7 +624,7 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
                 <div class="mb-3">
                 <label for="picture">照片</label>
                         <div class="figure ">  
-                            <img class="img-fluid cover-fit" src="images/<?=$row["campOwnerPic"]?>" alt="">
+                            <img class="img-fluid cover-fit" src="img/<?=$row["campOwnerPic"]?>" alt="">
                         </div>                                                     
                 </div>
                 <button class="btn btn-primary" type="submit">送出</button>
@@ -623,7 +633,11 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
             <?php endif; ?>               
     </div>
 </div>
-                
+    <script>
+
+    </script>
+</body>
+</html>
             </div><!-- col-10 -->
         </div><!-- row -->
 
@@ -655,8 +669,3 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
 </script>
 
 </html>
-
-
-
-
-<!-- ------------------------------------------------- -->

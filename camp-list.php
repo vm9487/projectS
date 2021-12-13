@@ -173,25 +173,25 @@ if (isset($_GET["cate1"])) {
     $sql = "SELECT * FROM camp_list WHERE campCate3ID = '$cate3' AND campValid=1 ";
 } elseif (isset($_GET["region"])) {
     $region = $_GET["region"];
-    $sql = "SELECT * FROM camp_list WHERE campCountyID  = '$region' AND campValid=1 ";
+    $sql = "SELECT * FROM camp_list WHERE campCountyID  = '$region' AND campValid=1 AND campOwnerID = '$id' ";
 }
 
 if (isset($_GET["bigregion"])) {
     $bigregion = $_GET["bigregion"];
-    $sql = "SELECT * FROM camp_list WHERE campRegionID = '$bigregion' AND campValid=1 ";
+    $sql = "SELECT * FROM camp_list WHERE campRegionID = '$bigregion' AND campValid=1 AND campOwnerID = '$id' ";
 }
 
 if (isset($_GET["order"])) {
     $order = $_GET["order"];
 
     if ($order === "priceAsc") {
-        $sql = "SELECT * FROM camp_list WHERE campValid=1 ORDER BY campPrice ASC";
+        $sql = "SELECT * FROM camp_list WHERE campValid=1 AND campOwnerID = '$id' ORDER BY campPrice ASC";
     } else if ($order === "priceDesc") {
-        $sql = "SELECT * FROM camp_list WHERE campValid=1 ORDER BY campPrice DESC";
+        $sql = "SELECT * FROM camp_list WHERE campValid=1 AND campOwnerID = '$id'  ORDER BY campPrice DESC";
     }
 }else if (isset($_GET["s"])) {
     $search = $_GET["s"];
-    $sql = "SELECT * FROM camp_list WHERE campName LIKE '%$search%' OR campDes LIKE '%$search%' OR campNote LIKE '%$search%' OR campAdd LIKE '%$search%'";
+    $sql = "SELECT * FROM camp_list WHERE campValid=1 AND campOwnerID = '$id' AND campName LIKE '%$search%'";
 }
 
 

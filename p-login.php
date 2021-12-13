@@ -125,7 +125,7 @@ require_once("../db-PDOconnect4project.php");
         <div class="row">
             <div class="col-lg-12">
                 <div class="d-flex justify-content-center">
-                    <div class="loginpic">
+                    <div class="loginpic d-flex justify-content-center">
                         <img class="img-fluid " src="img/glamping1.jpg" alt="">
                     </div>
                     <div class="login d-flex justify-content-center align-items-center flex-column">

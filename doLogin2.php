@@ -64,7 +64,7 @@ if(isset($_SESSION["toContinue"])){
             $_SESSION["usercamp"]=$userCampOwner;
             unset($_SESSION["error_time"]);
             unset($_SESSION["error_message"]);
-            unset($_SESSION["toContinue"]);
+            
     //                var_dump($_SESSION["user"]);
             echo "您需要以customer帳號登入";
             header("Refresh:3;url=doLogout.php");
@@ -79,7 +79,7 @@ if(isset($_SESSION["toContinue"])){
             $_SESSION["usersuper"]=$usersuper;
             unset($_SESSION["error_time"]);
             unset($_SESSION["error_message"]);
-            unset($_SESSION["toContinue"]);
+            
     //                var_dump($_SESSION["user"]);
             echo "您需要以customer帳號登入";
             header("Refresh:3;url=doLogout.php");

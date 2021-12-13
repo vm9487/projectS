@@ -13,6 +13,8 @@ if (isset($_SESSION["user"])) {
 //    echo"usercamp";
 //----------------------------------------------------------------------
     $id = $_SESSION["usercamp"]["campOwnerID"];
+    $usercamp=$_SESSION["usercamp"];
+    $campOwnerID=$usercamp["campOwnerID"];
     $sqlprofile = "SELECT * FROM camp_owner_list WHERE campOwnerID=? AND campOwnerValid=1 ";
     $stmtprofile = $db_host->prepare($sqlprofile);
     try {
@@ -35,6 +37,50 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
     } catch (PDOException $e) {
         echo $e->getMessage();
     };
+
+ ////////////////////////////////////////////////////////////////////   
+    $sqlallyearsale = "SELECT order_detail.*, camp_list.* 
+    FROM order_detail JOIN camp_list ON order_detail.campID=camp_list.campID
+    WHERE camp_list.campOwnerID=? AND orderStatusID=1";
+        $stmtallyearsale = $db_host->prepare($sqlallyearsale);
+        try {
+            $stmtallyearsale->execute([$id]);
+            $rowallyearsale = $stmtallyearsale->rowCount();
+            $rowallyearsale = $stmtallyearsale->fetchAll(PDO::FETCH_ASSOC);
+
+            // foreach($rowallyearsale as $row){
+            //                foreach($row as $key => $value){
+            //                    print_r( $row["orderDateStart"]);
+            //                    echo $key." : ".$value."<br />";}}
+    
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+/////////////////////////////////////////////////////////////////////////////////////////
+$sql="SELECT order_detail.*, customer_list.*, order_status.*, camp_list.*
+FROM (
+         (order_detail JOIN customer_list 
+        ON order_detail.customerID = customer_list.customerID
+        )
+    JOIN order_status
+    ON order_detail.orderStatusID=order_status.orderStatusID
+    )
+JOIN camp_list
+ON order_detail.campID=camp_list.campID
+WHERE campOwnerID=$campOwnerID
+ORDER BY createdTime
+";
+$stmt=$db_host->prepare($sql);
+try {
+    $stmt->execute();
+    $row=$stmt->fetchAll(PDO::FETCH_ASSOC);
+    $rowCount=$stmt->rowCount();
+}catch (PDOException $e){
+    echo $e->getMessage();
+}
+
+
+
 
 } elseif (isset($_SESSION["usersuper"])) {
 //    echo"super";
@@ -443,8 +489,219 @@ WHERE camp_owner_list.campOwnerID=? ORDER BY headpicID DESC";
                 <div class="d-flex justify-content-center my-3 border-bottom">
                  <h2>All Year Sales</h2>
                 </div>
-                <main class=" d-flex justify-content-center">
+                <main class=" d-flex flex-column justify-content-center">
                     <div class="paint"><canvas id="myChart"></canvas></div>
+                    
+                    <div class="mb-2 status">
+                        <a class="me-2 <?php if(!isset($status)) echo "active" ?>" href="owner_order_management.php" >總訂單</a>
+                        <a class="me-2 <?php if(isset($status) && $status==1) echo "active" ?>" href="owner_order_management.php?status=1">未結帳訂單</a>
+                        <a class="me-2 <?php if(isset($status) && $status==2) echo "active" ?>" href="owner_order_management.php?status=2">已結帳訂單</a>
+                        <a class="me-2 <?php if(isset($status) && $status==3) echo "active" ?>" href="owner_order_management.php?status=3">已取消訂單</a>
+                    </div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>營地名稱</th>
+                                <th>預定人姓名</th>
+                                <th>預定人電話</th>
+                                <th>人數</th>
+                                <th>入住日</th>
+                                <th>退房日</th>
+                                <th>價格</th>
+                                <th>下訂時間</th>
+                                <th>訂單狀態</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            if ($rowCount>0):
+                            foreach ($row as $value):
+                                if ($value["orderStatusID"]==1):
+                                ?>
+                                <form action="doCancelOrder.php" method="post">
+                                    <tr>
+                                        <td><?=$value["campName"]?></td>
+                                        <td><?=$value["customerName"]?></td>
+                                        <td><?=$value["customerPhone"]?></td>
+                                        <td><?=$value["numPpl"]?></td>
+                                        <td><?=$value["orderDateStart"]?></td>
+                                        <td><?=$value["orderDateEnd"]?></td>
+                                        <td>
+                                            <div class="d-flex justify-content-end">
+                                                <?php
+                                                //列出所有日期
+                                                $start_time = strtotime($value["orderDateStart"]);
+                                                $end_time = strtotime($value["orderDateEnd"]);
+                                                $i=0;
+                                                $arr=[];
+                                                while ($start_time<=$end_time){
+                                                    $arr[$i]=date('Y-m-d',$start_time);
+                                                    $start_time = strtotime('+1 day',$start_time);
+                                                    $i++;
+                                                }
+
+                                                //取得共有幾天
+                                                $dayCount=count($arr);
+
+                                                //列出是星期幾(1~5平日 / 6、0假日)
+                                                $week=[];
+                                                for ($i=0; $i<$dayCount; $i++){
+                                                    $week[]=date("w",strtotime("$arr[$i]"));
+                                                }
+
+                                                //判斷價錢
+                                                $holiday=500; //假日多加的錢
+                                                $holidayPrice=[];
+                                                $weekdayPrice=[];
+                                                for ($j=0; $j<$dayCount; $j++){
+                                                    if($week[$j]==6){
+                                                        $holidayPrice[]=(int)$value["campPrice"]+$holiday;
+                                                    }else if($week[$j]==0){
+                                                        $holidayPrice[]=(int)$value["campPrice"]+$holiday;
+                                                    }else{
+                                                        $weekdayPrice[]=(int)$value["campPrice"];
+                                                    }
+                                                }
+                                                echo array_sum($holidayPrice)+array_sum($weekdayPrice);
+                                                ?>
+                                            </div>
+                                        </td>
+                                        <td><?=$value["createdTime"]?></td>
+                                        <td><?=$value["orderStatusItem"]?></td>
+                                        <td>
+                                            <input type="hidden" name="orderID" value="<?=$value["orderID"]?>">
+                                            <button type="submit" class="btn btn-outline-danger">取消訂單</button>
+                                        </td>
+                                    </tr>
+                                </form>
+                                <?php
+                                elseif($value["orderStatusID"]==2):
+                                ?>
+                                    <tr>
+                                        <td><?=$value["campName"]?></td>
+                                        <td><?=$value["customerName"]?></td>
+                                        <td><?=$value["customerPhone"]?></td>
+                                        <td><?=$value["numPpl"]?></td>
+                                        <td><?=$value["orderDateStart"]?></td>
+                                        <td><?=$value["orderDateEnd"]?></td>
+                                        <td>
+                                            <div class="d-flex justify-content-end">
+                                                <?php
+                                                //列出所有日期
+                                                $start_time = strtotime($value["orderDateStart"]);
+                                                $end_time = strtotime($value["orderDateEnd"]);
+                                                $i=0;
+                                                $arr=[];
+                                                while ($start_time<=$end_time){
+                                                    $arr[$i]=date('Y-m-d',$start_time);
+                                                    $start_time = strtotime('+1 day',$start_time);
+                                                    $i++;
+                                                }
+
+                                                //取得共有幾天
+                                                $dayCount=count($arr);
+
+                                                //列出是星期幾(1~5平日 / 6、0假日)
+                                                $week=[];
+                                                for ($i=0; $i<$dayCount; $i++){
+                                                    $week[]=date("w",strtotime("$arr[$i]"));
+                                                }
+
+                                                //判斷價錢
+                                                $holiday=500; //假日多加的錢
+                                                $holidayPrice=[];
+                                                $weekdayPrice=[];
+                                                for ($j=0; $j<$dayCount; $j++){
+                                                    if($week[$j]==6){
+                                                        $holidayPrice[]=(int)$value["campPrice"]+$holiday;
+                                                    }else if($week[$j]==0){
+                                                        $holidayPrice[]=(int)$value["campPrice"]+$holiday;
+                                                    }else{
+                                                        $weekdayPrice[]=(int)$value["campPrice"];
+                                                    }
+                                                }
+                                                echo array_sum($holidayPrice)+array_sum($weekdayPrice);
+                                                ?>
+                                            </div>
+                                        </td>
+                                        <td><?=$value["createdTime"]?></td>
+                                        <td><?=$value["orderStatusItem"]?></td>
+                                        <td></td>
+                                    </tr>
+                                <?php
+                                else:
+                                ?>
+                                    <form action="doRecoverOrder.php" method="post">
+                                        <tr class="table-secondary">
+                                            <td><?=$value["campName"]?></td>
+                                            <td><?=$value["customerName"]?></td>
+                                            <td><?=$value["customerPhone"]?></td>
+                                            <td><?=$value["numPpl"]?></td>
+                                            <td><?=$value["orderDateStart"]?></td>
+                                            <td><?=$value["orderDateEnd"]?></td>
+                                            <td>
+                                                <div class="d-flex justify-content-end">
+                                                    <?php
+                                                    //列出所有日期
+                                                    $start_time = strtotime($value["orderDateStart"]);
+                                                    $end_time = strtotime($value["orderDateEnd"]);
+                                                    $i=0;
+                                                    $arr=[];
+                                                    while ($start_time<=$end_time){
+                                                        $arr[$i]=date('Y-m-d',$start_time);
+                                                        $start_time = strtotime('+1 day',$start_time);
+                                                        $i++;
+                                                    }
+
+                                                    //取得共有幾天
+                                                    $dayCount=count($arr);
+
+                                                    //列出是星期幾(1~5平日 / 6、0假日)
+                                                    $week=[];
+                                                    for ($i=0; $i<$dayCount; $i++){
+                                                        $week[]=date("w",strtotime("$arr[$i]"));
+                                                    }
+
+                                                    //判斷價錢
+                                                    $holiday=500; //假日多加的錢
+                                                    $holidayPrice=[];
+                                                    $weekdayPrice=[];
+                                                    for ($j=0; $j<$dayCount; $j++){
+                                                        if($week[$j]==6){
+                                                            $holidayPrice[]=(int)$value["campPrice"]+$holiday;
+                                                        }else if($week[$j]==0){
+                                                            $holidayPrice[]=(int)$value["campPrice"]+$holiday;
+                                                        }else{
+                                                            $weekdayPrice[]=(int)$value["campPrice"];
+                                                        }
+                                                    }
+                                                    echo array_sum($holidayPrice)+array_sum($weekdayPrice);
+                                                    ?>
+                                                </div>
+                                            </td>
+                                            <td><?=$value["createdTime"]?></td>
+                                            <td><?=$value["orderStatusItem"]?></td>
+                                            <td>
+                                                <input type="hidden" name="orderID" value="<?=$value["orderID"]?>">
+                                                <button type="submit" class="btn btn-outline-secondary">復原</button>
+                                            </td>
+                                        </tr>
+                                    </form>
+                            <?php
+                                endif;
+                            endforeach;
+                            else:
+                            ?>
+                                <tr>
+                                    <td colspan="9">沒有資料</td>
+                                </tr>
+                            <?php
+                            endif;
+                            ?>
+                        </tbody>
+                    </table>
+                
                 
                 </main>
 
@@ -480,25 +737,53 @@ var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange','test','test2','test3','test','test','test'],
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            label: '總銷售額',
+            data: 
+            [
+            152, 
+            23319,
+            3,
+            5,
+            2, 
+            2, 
+            2, 
+            2, 
+            2, 
+            2, 
+            2,   
+            3
+               ],
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
+                'rgba(17, 112, 107, 0.2)',
                 'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                'rgba(17, 112, 107, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(17, 112, 107, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(17, 112, 107, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(17, 112, 107, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(17, 112, 107, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                
             ],
             borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
+                'rgba(17, 112, 107, 1)',
                 'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
+                'rgba(17, 112, 107, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(17, 112, 107, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(17, 112, 107, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(17, 112, 107, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(17, 112, 107, 1)',
+                'rgba(75, 192, 192, 1)',
+                
             ],
             borderWidth: 1
         }]

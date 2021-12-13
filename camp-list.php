@@ -745,7 +745,7 @@ $campCount = $result->num_rows;
                                 共 <?= $campCount ?> 筆營地上架
                             </div>
                             <div>
-                                <!-- <a role="button" class="btn btn-primary" href="camp-list.php">回列表</a> -->
+                                <a role="button" class="btn btn-primary" href="camp-list.php">回列表</a>
                                 <a class="btn btn-primary" href="camp-add.php">新增營地</a>
                             </div>
                         </div>

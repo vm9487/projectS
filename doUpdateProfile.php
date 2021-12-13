@@ -21,7 +21,7 @@ if($password!==$repassword){
     echo "<script>window.alert('密碼不相同，請重新輸入');location.href='p-profile.php.php';</script>";
     exit();
 }
-//$password=md5($password);
+$password=md5($password);
 if (isset($_SESSION["user"])){
     $sql = "UPDATE `customer_list` SET `customerPhone` = ?, `customerPassword`= ? ,`customerName` = ?, `customerBday`= ?, `customerGender`= ? WHERE `customerID` = ? ";
 }
